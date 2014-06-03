@@ -1,29 +1,30 @@
 //
-//  CCViewController.m
+//  CCDirectionsViewController.m
 //  A-2-B
 //
 //  Created by Chad D Colby on 6/2/14.
 //  Copyright (c) 2014 Byte Meets World. All rights reserved.
 //
 
-#import "CCViewController.h"
+#import "CCDirectionsViewController.h"
 
-@interface CCViewController ()
+@interface CCDirectionsViewController ()
 
 @end
 
-@implementation CCViewController
+@implementation CCDirectionsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"directions");
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
 }
 
 @end

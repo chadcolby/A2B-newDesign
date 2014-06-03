@@ -1,5 +1,5 @@
 //
-//  CCViewController.h
+//  CCDirectionsViewController.h
 //  A-2-B
 //
 //  Created by Chad D Colby on 6/2/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CCViewController : UIViewController
+@interface CCDirectionsViewController : UIViewController
 
 @end
