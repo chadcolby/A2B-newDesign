@@ -10,6 +10,7 @@
 #import "CCDirectionsViewController.h"
 #import "CCDrawingViewController.h"
 #import "CCButtons.h"
+#import "CCMenuView.h"
 
 @interface CCMapViewController () <MKMapViewDelegate, DrawingViewDelegate>
 
@@ -17,10 +18,12 @@
 
 @property (strong, nonatomic) CCDirectionsViewController *directionsVC;
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
+@property (strong, nonatomic) CCMenuView *menuView;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
+@property (strong, nonatomic) UITapGestureRecognizer *tapToClose;
 
 @property (weak, nonatomic) IBOutlet CCButtons *menuButton;
 - (IBAction)menuButtonPressed:(id)sender;
@@ -112,6 +115,7 @@
 {
     self.drawingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"drawingVC"];
     self.drawingVC.delegate = self;
+    [self.drawingVC.view removeGestureRecognizer:self.longPress];
     [self addChildViewController:self.drawingVC];
     self.drawingVC.view.frame = self.mapView.frame;
     [self.view addSubview:self.drawingVC.view];
@@ -133,16 +137,57 @@
     }
 }
 
+- (void)closeMenu:(UITapGestureRecognizer *)sender
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+        self.menuButton.alpha = 1.0f;
+        self.currentLocationButton.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        self.tapToClose.enabled = NO;
+    }];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)menuButtonPressed:(id)sender
 {
     NSLog(@"menu");
+    if (!self.menuView) {
+        self.menuView = [[CCMenuView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 100)];
+        [self.menuView removeGestureRecognizer:self.longPress];
+        [self.view addSubview:self.menuView];
+        self.tapToClose = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeMenu:)];
+        self.tapToClose.numberOfTapsRequired = 1;
+        self.tapToClose.numberOfTouchesRequired = 1;
+        [self.view addGestureRecognizer:self.tapToClose];
+
+    } else {
+        self.tapToClose.enabled = YES;
+    }
+    [self showMenuViewAnimated:YES];
 }
 
 - (IBAction)currentLocationButtonPressed:(id)sender
 {
     NSLog(@"current location");
+}
+
+#pragma mark - CCButtons actions
+
+- (void)showMenuViewAnimated:(BOOL)animated
+{
+    if (animated) {
+        [UIView animateWithDuration:0.4f animations:^{
+            self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 100, self.view.bounds.
+                                             size.width, 100);
+            self.menuView.alpha = 0.8f;
+            self.currentLocationButton.alpha = 0.5;
+        } completion:^(BOOL finished) {
+            self.menuButton.alpha = 0.0f;
+            self.currentLocationButton.alpha = 0.0f;
+        }];
+    }
 }
 
 #pragma mark - DrawingViewDelegate
