@@ -49,12 +49,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.directionsVC) {
-        [self.operationQueue addOperationWithBlock:^{
-            [self directionsViewSetUp];
-        }];
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,9 +100,10 @@
     self.directionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"directionsVC"];
     [self addChildViewController:self.directionsVC];
     self.directionsVC.view.frame = self.mapView.frame;
-    [self.view insertSubview:self.directionsVC.view belowSubview:self.mapView];
-    [self.directionsVC didMoveToParentViewController:self];
+    [self.view insertSubview:self.directionsVC.view belowSubview:self.view];
 
+    [self.directionsVC didMoveToParentViewController:self];
+    [self.view bringSubviewToFront:self.directionsVC.view];
 }
 
 - (void)drawingViewSetUp
@@ -117,9 +112,11 @@
     self.drawingVC.delegate = self;
     [self.drawingVC.view removeGestureRecognizer:self.longPress];
     [self addChildViewController:self.drawingVC];
+
     self.drawingVC.view.frame = self.mapView.frame;
     [self.view addSubview:self.drawingVC.view];
     [self.drawingVC didMoveToParentViewController:self];
+
 }
 
 #pragma mark - gesture recognizers
@@ -145,6 +142,7 @@
         self.currentLocationButton.alpha = 1.0f;
     } completion:^(BOOL finished) {
         self.tapToClose.enabled = NO;
+        self.longPress.enabled = YES;
     }];
 }
 
@@ -161,6 +159,11 @@
         self.tapToClose.numberOfTapsRequired = 1;
         self.tapToClose.numberOfTouchesRequired = 1;
         [self.view addGestureRecognizer:self.tapToClose];
+        
+        [self.menuView.directionsButton addTarget:self action:@selector(showDirections:) forControlEvents:UIControlEventTouchUpInside];
+        [self.menuView.forwardButton addTarget:self action:@selector(sendMap:) forControlEvents:UIControlEventTouchUpInside];
+        [self.menuView.clearButton addTarget:self action:@selector(clearMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [self.menuView.settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
 
     } else {
         self.tapToClose.enabled = YES;
@@ -187,7 +190,43 @@
             self.menuButton.alpha = 0.0f;
             self.currentLocationButton.alpha = 0.0f;
         }];
+        self.longPress.enabled = NO;
     }
+}
+
+- (void)showDirections:(CCButtons *)sender
+{
+    NSLog(@"dirs");
+    if (!self.directionsVC) {
+        [self directionsViewSetUp];
+    } else {
+        
+    }
+
+    [UIView animateWithDuration:0.4f animations:^{
+        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height);
+        self.view.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - 272);
+        
+    } completion:^(BOOL finished) {
+        self.longPress.enabled = NO;
+        self.tapToClose.enabled = NO;
+    }];
+
+}
+
+- (void)sendMap:(CCButtons *)sender
+{
+    NSLog(@"send");
+}
+
+- (void)clearMapView:(CCButtons *)sender
+{
+    NSLog(@"clear");
+}
+
+- (void)showSettings:(CCButtons *)sender
+{
+    NSLog(@"settings");
 }
 
 #pragma mark - DrawingViewDelegate
@@ -200,7 +239,6 @@
     } completion:^(BOOL finished) {
         
     }];
-    
 }
 
 - (void)drawingEventDidEnd

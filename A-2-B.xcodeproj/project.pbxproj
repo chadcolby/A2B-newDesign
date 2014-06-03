@@ -37,6 +37,11 @@
 		8DBA423C193E4E6A0039B673 /* send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4234193E4E6A0039B673 /* send@2x.png */; };
 		8DBA423D193E4E6A0039B673 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4235193E4E6A0039B673 /* settings.png */; };
 		8DBA423E193E4E6A0039B673 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4236193E4E6A0039B673 /* settings@2x.png */; };
+		8DBA4241193E57D20039B673 /* CCHexCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA4240193E57D20039B673 /* CCHexCollectionView.m */; };
+		8DBA4244193E58000039B673 /* CCHexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA4243193E58000039B673 /* CCHexCell.m */; };
+		8DBA4246193E58260039B673 /* CCHexCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4245193E58260039B673 /* CCHexCell.xib */; };
+		8DBA4249193E58F90039B673 /* hexagon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4247193E58F90039B673 /* hexagon.png */; };
+		8DBA424A193E58F90039B673 /* hexagon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4248193E58F90039B673 /* hexagon@2x.png */; };
 		8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEBB193D0D5C00484DCE /* CCMapViewController.m */; };
 		8DC5AEBF193D0D9000484DCE /* CCDirectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEBE193D0D9000484DCE /* CCDirectionsViewController.m */; };
 		8DC5AEC2193D0DAD00484DCE /* CCDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEC1193D0DAD00484DCE /* CCDrawingViewController.m */; };
@@ -92,6 +97,13 @@
 		8DBA4234193E4E6A0039B673 /* send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send@2x.png"; sourceTree = "<group>"; };
 		8DBA4235193E4E6A0039B673 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		8DBA4236193E4E6A0039B673 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		8DBA423F193E57D20039B673 /* CCHexCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHexCollectionView.h; sourceTree = "<group>"; };
+		8DBA4240193E57D20039B673 /* CCHexCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHexCollectionView.m; sourceTree = "<group>"; };
+		8DBA4242193E58000039B673 /* CCHexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHexCell.h; sourceTree = "<group>"; };
+		8DBA4243193E58000039B673 /* CCHexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHexCell.m; sourceTree = "<group>"; };
+		8DBA4245193E58260039B673 /* CCHexCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CCHexCell.xib; sourceTree = "<group>"; };
+		8DBA4247193E58F90039B673 /* hexagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hexagon.png; sourceTree = "<group>"; };
+		8DBA4248193E58F90039B673 /* hexagon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hexagon@2x.png"; sourceTree = "<group>"; };
 		8DC5AEBA193D0D5C00484DCE /* CCMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMapViewController.h; sourceTree = "<group>"; };
 		8DC5AEBB193D0D5C00484DCE /* CCMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMapViewController.m; sourceTree = "<group>"; };
 		8DC5AEBD193D0D9000484DCE /* CCDirectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirectionsViewController.h; sourceTree = "<group>"; };
@@ -207,6 +219,8 @@
 		8DBA4218193E33A10039B673 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8DBA4247193E58F90039B673 /* hexagon.png */,
+				8DBA4248193E58F90039B673 /* hexagon@2x.png */,
 				8DBA422F193E4E6A0039B673 /* clear.png */,
 				8DBA4230193E4E6A0039B673 /* clear@2x.png */,
 				8DBA4231193E4E6A0039B673 /* directions.png */,
@@ -243,6 +257,9 @@
 		8DBA421A193E33C90039B673 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8DBA4242193E58000039B673 /* CCHexCell.h */,
+				8DBA4243193E58000039B673 /* CCHexCell.m */,
+				8DBA4245193E58260039B673 /* CCHexCell.xib */,
 				8DC5AEC3193D2A3200484DCE /* CCButtons.h */,
 				8DC5AEC4193D2A3200484DCE /* CCButtons.m */,
 			);
@@ -252,6 +269,8 @@
 		8DBA422E193E41A70039B673 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8DBA423F193E57D20039B673 /* CCHexCollectionView.h */,
+				8DBA4240193E57D20039B673 /* CCHexCollectionView.m */,
 				8DBA422B193E419A0039B673 /* CCMenuView.h */,
 				8DBA422C193E419A0039B673 /* CCMenuView.m */,
 			);
@@ -350,10 +369,13 @@
 				8DA66EA9193D099D00A34A4E /* InfoPlist.strings in Resources */,
 				8DBA4239193E4E6A0039B673 /* directions.png in Resources */,
 				8DBA4221193E35FF0039B673 /* location.png in Resources */,
+				8DBA424A193E58F90039B673 /* hexagon@2x.png in Resources */,
 				8DBA423A193E4E6A0039B673 /* directions@2x.png in Resources */,
 				8DA66EB2193D099D00A34A4E /* Main.storyboard in Resources */,
+				8DBA4249193E58F90039B673 /* hexagon.png in Resources */,
 				8DBA423E193E4E6A0039B673 /* settings@2x.png in Resources */,
 				8DBA4238193E4E6A0039B673 /* clear@2x.png in Resources */,
+				8DBA4246193E58260039B673 /* CCHexCell.xib in Resources */,
 				8DBA422A193E37EC0039B673 /* route@2x.png in Resources */,
 				8DBA423C193E4E6A0039B673 /* send@2x.png in Resources */,
 			);
@@ -409,6 +431,8 @@
 			files = (
 				8DBA422D193E419A0039B673 /* CCMenuView.m in Sources */,
 				8DC5AEBF193D0D9000484DCE /* CCDirectionsViewController.m in Sources */,
+				8DBA4241193E57D20039B673 /* CCHexCollectionView.m in Sources */,
+				8DBA4244193E58000039B673 /* CCHexCell.m in Sources */,
 				8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */,
 				8DA66EAF193D099D00A34A4E /* CCAppDelegate.m in Sources */,
 				8DC5AEC2193D0DAD00484DCE /* CCDrawingViewController.m in Sources */,

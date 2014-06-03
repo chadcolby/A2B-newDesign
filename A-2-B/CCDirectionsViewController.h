@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCHexCollectionView.h"
 
 @interface CCDirectionsViewController : UIViewController
+
+@property (strong, nonatomic) CCHexCollectionView *collectionView;
 
 @end

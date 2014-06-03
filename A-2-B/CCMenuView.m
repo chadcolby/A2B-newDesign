@@ -26,7 +26,6 @@
 {
     self.directionsButton = [[CCButtons alloc] initWithFrame:CGRectMake(self.bounds.origin.x + 15, 25, 50, 50)];
     [self.directionsButton setImage:[UIImage imageNamed:@"directions"] forState:UIControlStateNormal];
-    self.directionsButton.enabled = NO;
     [self addSubview:self.directionsButton];
     
     self.forwardButton = [[CCButtons alloc] initWithFrame:CGRectMake(self.bounds.origin.x + 95, 25, 50, 50)];
