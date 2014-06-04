@@ -10,10 +10,10 @@
 
 @interface CCDirDataSource : NSObject
 
-@property (strong, nonatomic) NSMutableArray *dataSourceArray;
+@property (strong, nonatomic) NSArray *dataSourceArray;
 @property (strong, nonatomic) id routeDataSoure;
 
 + (CCDirDataSource *)sharedDataSource;
-
+- (void)reloadCollectionViewWithRoute:(id)route;
 
 @end

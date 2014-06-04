@@ -11,7 +11,7 @@
 
 @protocol RouteRequestDelegate <NSObject>
 
-- (void)drawingEventDidEndWithLine:(CCLine *)finishedLine;
+- (void)requestRouteFromLine:(CCLine *)finishedLine;
 - (void)drawingEventCancelled;
 
 @end

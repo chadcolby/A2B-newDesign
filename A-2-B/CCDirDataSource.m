@@ -8,6 +8,8 @@
 
 #import "CCDirDataSource.h"
 #import "CCHexCell.h"
+#import "CCRouteRequestController.h"
+#import <MapKit/MapKit.h>
 
 @interface CCDirDataSource () <UICollectionViewDataSource>
 
@@ -30,8 +32,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return self.dataSourceArray.count;
-    return  3;
+    if (!self.dataSourceArray) {
+        return 0;
+    } else {
+        return self.dataSourceArray.count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -39,6 +44,14 @@
     CCHexCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCELL_ID forIndexPath:indexPath];
     
     return cell;
+}
+
+- (void)reloadCollectionViewWithRoute:(MKRoute *)route
+{
+    self.dataSourceArray = [NSArray arrayWithArray:route.steps];
+    for (MKRouteStep *step in self.dataSourceArray) {
+        NSLog(@">>>> %@", step.instructions);
+    }
 }
 
 @end

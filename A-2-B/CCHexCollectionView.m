@@ -34,7 +34,7 @@
         self.routeDataSource = [CCDirDataSource sharedDataSource];
         self.scrollEnabled = YES;
         self.dataSource = (id)self.routeDataSource;
-//        self.delegate = self;
+
         self.backgroundColor = [UIColor clearColor];
         [self registerNib:[CCHexCell cellNib] forCellWithReuseIdentifier:kCELL_ID];
         

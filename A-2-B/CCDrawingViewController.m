@@ -53,6 +53,7 @@
     } completion:^(BOOL finished) {
         if (finished) {
             [self.delegate drawingEventCancelled];
+            [self.drawingView clearLines];
         }
     }];
 }
@@ -60,20 +61,28 @@
 - (IBAction)routeButtonPressed:(id)sender
 {
     if (self.requstedRoute) {
-        NSLog(@"we need a route");
+        [UIView animateWithDuration:0.2 animations:^{
+            self.view.hidden = YES;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self.delegate requestRouteFromLine:self.requstedRoute];    //mapView translates line points into own coordinate system
+                [self.drawingView clearLines];
+            }
+        }];
     }
     
 }
 
 #pragma mark - DrawingEventDelegate
 
-- (void)drawingEventFinishedWithLine:(CCLine *)finishedLine
+- (void)drawingEventFinishedWithLine:(CCLine *)finishedLine //drawing view informs self that line finished
 {
     if (finishedLine) {
         self.requstedRoute = finishedLine;
     } else {
         self.requstedRoute = nil;
     }
+
     
 }
 

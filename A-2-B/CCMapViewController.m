@@ -11,6 +11,7 @@
 #import "CCButtons.h"
 #import "CCMenuView.h"
 #import "CCHexCollectionView.h"
+#import "CCRouteRequestController.h"
 
 @interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate>
 
@@ -22,6 +23,8 @@
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
 @property (strong, nonatomic) UITapGestureRecognizer *tapToClose;
+
+@property (strong, nonatomic) MKRoute *routeForMap;
 
 @property (weak, nonatomic) IBOutlet CCButtons *menuButton;
 - (IBAction)menuButtonPressed:(id)sender;
@@ -144,7 +147,6 @@
 
 - (IBAction)menuButtonPressed:(id)sender
 {
-    NSLog(@"menu");
     if (!self.menuView) {
         self.menuView = [[CCMenuView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 100)];
         [self.menuView removeGestureRecognizer:self.longPress];
@@ -190,7 +192,6 @@
 
 - (void)showDirections:(CCButtons *)sender
 {
-    NSLog(@"dirs");
     if (!self.collectionView) {
         [self directionsViewSetUp];
     } else {
@@ -234,10 +235,43 @@
     }];
 }
 
-- (void)drawingEventDidEndWithLine:(CCLine *)finishedLine
+- (void)requestRouteFromLine:(CCLine *)finishedLine
 {
+    if (finishedLine) {
+        CLLocationCoordinate2D endCoord = [self.mapView convertPoint:finishedLine.endPoint toCoordinateFromView:self.mapView];
+        [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapViewWithRoutes:) name:@"routesReturned" object:nil];
+    }
+    
+    self.menuButton.alpha = 1.0f;
+    self.currentLocationButton.alpha = 1.0f;
     
 }
 
+- (void)updateMapViewWithRoutes:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:@"routesReturned"]) {
+        NSLog(@"Routes %@", notification.userInfo);
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
+        self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
+        
+        [self.mapView addOverlay:self.routeForMap.polyline];
+    }
+}
+
+#pragma mark - MapView Delegate
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    if (self.routeForMap != nil) {
+        MKPolylineRenderer *routeLineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:self.routeForMap.polyline];
+        routeLineRenderer.strokeColor = [UIColor colorWithRed:185.f/255 green:61.f/255 blue:76.f/255 alpha:1.f];
+        routeLineRenderer.lineWidth = 3;
+        
+        return routeLineRenderer;
+    } else {
+        return nil;
+    }
+}
 
 @end
