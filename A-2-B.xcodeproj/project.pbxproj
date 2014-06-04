@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */; };
+		8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5A193FC07E0047D451 /* CCLine.m */; };
+		8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5D193FC1050047D451 /* CCDrawingView.m */; };
 		8DA66E9F193D099D00A34A4E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66E9E193D099D00A34A4E /* Foundation.framework */; };
 		8DA66EA1193D099D00A34A4E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */; };
 		8DA66EA3193D099D00A34A4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA2193D099D00A34A4E /* UIKit.framework */; };
@@ -64,6 +66,10 @@
 		38604731853949928DF66D38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirDataSource.h; sourceTree = "<group>"; };
 		8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDirDataSource.m; sourceTree = "<group>"; };
+		8D7B7E59193FC07E0047D451 /* CCLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLine.h; sourceTree = "<group>"; };
+		8D7B7E5A193FC07E0047D451 /* CCLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLine.m; sourceTree = "<group>"; };
+		8D7B7E5C193FC1050047D451 /* CCDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawingView.h; sourceTree = "<group>"; };
+		8D7B7E5D193FC1050047D451 /* CCDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDrawingView.m; sourceTree = "<group>"; };
 		8DA66E9B193D099D00A34A4E /* A-2-B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A-2-B.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA66E9E193D099D00A34A4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -178,8 +184,10 @@
 				8DA66EAE193D099D00A34A4E /* CCAppDelegate.m */,
 				8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */,
 				8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */,
-				8DBA422E193E41A70039B673 /* Views */,
+				8D7B7E59193FC07E0047D451 /* CCLine.h */,
+				8D7B7E5A193FC07E0047D451 /* CCLine.m */,
 				8DA66EB0193D099D00A34A4E /* Main.storyboard */,
+				8DBA422E193E41A70039B673 /* Views */,
 				8DBA4219193E33B90039B673 /* Controllers */,
 				8DBA421A193E33C90039B673 /* UI */,
 				8DBA4218193E33A10039B673 /* images */,
@@ -269,6 +277,8 @@
 		8DBA422E193E41A70039B673 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D7B7E5C193FC1050047D451 /* CCDrawingView.h */,
+				8D7B7E5D193FC1050047D451 /* CCDrawingView.m */,
 				8DBA423F193E57D20039B673 /* CCHexCollectionView.h */,
 				8DBA4240193E57D20039B673 /* CCHexCollectionView.m */,
 				8DBA422B193E419A0039B673 /* CCMenuView.h */,
@@ -438,6 +448,8 @@
 				8DA66EAB193D099D00A34A4E /* main.m in Sources */,
 				8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */,
 				8DC5AEC5193D2A3200484DCE /* CCButtons.m in Sources */,
+				8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */,
+				8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

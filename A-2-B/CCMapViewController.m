@@ -12,7 +12,7 @@
 #import "CCMenuView.h"
 #import "CCHexCollectionView.h"
 
-@interface CCMapViewController () <MKMapViewDelegate, DrawingViewDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
@@ -199,9 +199,7 @@
 
     [UIView animateWithDuration:0.4f animations:^{
         self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
-        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);
-//        self.mapView.frame = CGRectMake(self.view.bounds.origin.x + 50, self.view.bounds.origin.y, self.view.bounds.size.width - 100, self.view.bounds.size.height - 232);
-        
+        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);        
     } completion:^(BOOL finished) {
         self.longPress.enabled = NO;
         self.tapToClose.enabled = NO;
@@ -236,7 +234,7 @@
     }];
 }
 
-- (void)drawingEventDidEnd
+- (void)drawingEventDidEndWithLine:(CCLine *)finishedLine
 {
     
 }

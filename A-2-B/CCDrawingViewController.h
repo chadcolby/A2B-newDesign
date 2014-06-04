@@ -7,16 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCDrawingView.h"
 
-@protocol DrawingViewDelegate <NSObject>
+@protocol RouteRequestDelegate <NSObject>
 
-- (void)drawingEventDidEnd;
+- (void)drawingEventDidEndWithLine:(CCLine *)finishedLine;
 - (void)drawingEventCancelled;
 
 @end
 
 @interface CCDrawingViewController : UIViewController
 
-@property (unsafe_unretained) id <DrawingViewDelegate> delegate;
+@property (unsafe_unretained) id <RouteRequestDelegate> delegate;
 
 @end

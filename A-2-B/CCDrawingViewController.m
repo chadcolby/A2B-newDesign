@@ -10,7 +10,10 @@
 #import "CCButtons.h"
 
 
-@interface CCDrawingViewController ()
+@interface CCDrawingViewController () <DrawingEventDelegate>
+
+@property (strong, nonatomic) CCDrawingView *drawingView;
+@property (strong, nonatomic) CCLine *requstedRoute;
 
 @property (weak, nonatomic) IBOutlet CCButtons *backButton;
 - (IBAction)backButtonPressed:(id)sender;
@@ -24,7 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.drawingView = (CCDrawingView *)self.view;
+    self.drawingView.delegate = self;
+    self.routeButton.enabled = NO;  //enabled once a line is finished
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +52,6 @@
         self.view.hidden = YES;
     } completion:^(BOOL finished) {
         if (finished) {
-            NSLog(@"finsished");
             [self.delegate drawingEventCancelled];
         }
     }];
@@ -49,11 +59,29 @@
 
 - (IBAction)routeButtonPressed:(id)sender
 {
+    if (self.requstedRoute) {
+        NSLog(@"we need a route");
+    }
     
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+#pragma mark - DrawingEventDelegate
 
+- (void)drawingEventFinishedWithLine:(CCLine *)finishedLine
+{
+    if (finishedLine) {
+        self.requstedRoute = finishedLine;
+    } else {
+        self.requstedRoute = nil;
+    }
+    
 }
+
+- (void)routeRequestEnabled:(BOOL)enabled
+{
+    if (enabled) {
+        self.routeButton.enabled = YES;
+    }
+}
+
 @end

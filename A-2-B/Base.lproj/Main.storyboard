@@ -75,7 +75,7 @@
                         <viewControllerLayoutGuide type="top" id="NwU-Sd-aqb"/>
                         <viewControllerLayoutGuide type="bottom" id="BM8-Bd-W7k"/>
                     </layoutGuides>
-                    <view key="view" contentMode="center" id="0t5-j8-xxl">
+                    <view key="view" contentMode="center" id="0t5-j8-xxl" customClass="CCDrawingView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
