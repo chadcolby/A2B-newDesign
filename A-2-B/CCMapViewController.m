@@ -7,18 +7,16 @@
 //
 
 #import "CCMapViewController.h"
-#import "CCDirectionsViewController.h"
 #import "CCDrawingViewController.h"
 #import "CCButtons.h"
 #import "CCMenuView.h"
+#import "CCHexCollectionView.h"
 
 @interface CCMapViewController () <MKMapViewDelegate, DrawingViewDelegate>
 
-@property (strong, nonatomic) NSOperationQueue *operationQueue;
-
-@property (strong, nonatomic) CCDirectionsViewController *directionsVC;
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
+@property (strong, nonatomic) CCHexCollectionView *collectionView;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
@@ -70,7 +68,6 @@
         [self.view addSubview:self.mapView];
         [self.view bringSubviewToFront:self.currentLocationButton];
         [self.view bringSubviewToFront:self.menuButton];
-        self.operationQueue = [[NSOperationQueue alloc] init];
         
         if ([CLLocationManager locationServicesEnabled]) {
             if (!self.locationManager) {
@@ -97,13 +94,10 @@
 
 - (void)directionsViewSetUp
 {
-    self.directionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"directionsVC"];
-    [self addChildViewController:self.directionsVC];
-    self.directionsVC.view.frame = self.mapView.frame;
-    [self.view insertSubview:self.directionsVC.view belowSubview:self.view];
-
-    [self.directionsVC didMoveToParentViewController:self];
-    [self.view bringSubviewToFront:self.directionsVC.view];
+    self.collectionView = [[CCHexCollectionView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height,
+                                                                                CGRectGetWidth(self.view.frame), 222)];
+    self.collectionView.delegate = (id)self;
+    [self.view addSubview:self.collectionView];
 }
 
 - (void)drawingViewSetUp
@@ -197,15 +191,16 @@
 - (void)showDirections:(CCButtons *)sender
 {
     NSLog(@"dirs");
-    if (!self.directionsVC) {
+    if (!self.collectionView) {
         [self directionsViewSetUp];
     } else {
         
     }
 
     [UIView animateWithDuration:0.4f animations:^{
-        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height);
-        self.view.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - 272);
+        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);
+//        self.mapView.frame = CGRectMake(self.view.bounds.origin.x + 50, self.view.bounds.origin.y, self.view.bounds.size.width - 100, self.view.bounds.size.height - 232);
         
     } completion:^(BOOL finished) {
         self.longPress.enabled = NO;
@@ -245,4 +240,6 @@
 {
     
 }
+
+
 @end

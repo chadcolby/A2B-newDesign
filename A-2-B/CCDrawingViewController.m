@@ -52,5 +52,8 @@
     
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
 
+}
 @end
