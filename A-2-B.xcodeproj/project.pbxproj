@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D2F3EA619415C960024CFF6 /* CCBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F3EA519415C960024CFF6 /* CCBackView.m */; };
 		8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */; };
 		8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5A193FC07E0047D451 /* CCLine.m */; };
 		8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5D193FC1050047D451 /* CCDrawingView.m */; };
@@ -65,6 +66,8 @@
 /* Begin PBXFileReference section */
 		19A9E0BBA09A49E6BA10764F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		38604731853949928DF66D38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D2F3EA419415C960024CFF6 /* CCBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBackView.h; sourceTree = "<group>"; };
+		8D2F3EA519415C960024CFF6 /* CCBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCBackView.m; sourceTree = "<group>"; };
 		8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirDataSource.h; sourceTree = "<group>"; };
 		8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDirDataSource.m; sourceTree = "<group>"; };
 		8D7B7E59193FC07E0047D451 /* CCLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLine.h; sourceTree = "<group>"; };
@@ -148,6 +151,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D7B7E62193FE4870047D451 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */,
+				8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */,
+				8D7B7E59193FC07E0047D451 /* CCLine.h */,
+				8D7B7E5A193FC07E0047D451 /* CCLine.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		8DA66E92193D099D00A34A4E = {
 			isa = PBXGroup;
 			children = (
@@ -185,11 +199,8 @@
 			children = (
 				8DA66EAD193D099D00A34A4E /* CCAppDelegate.h */,
 				8DA66EAE193D099D00A34A4E /* CCAppDelegate.m */,
-				8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */,
-				8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */,
-				8D7B7E59193FC07E0047D451 /* CCLine.h */,
-				8D7B7E5A193FC07E0047D451 /* CCLine.m */,
 				8DA66EB0193D099D00A34A4E /* Main.storyboard */,
+				8D7B7E62193FE4870047D451 /* Models */,
 				8DBA422E193E41A70039B673 /* Views */,
 				8DBA4219193E33B90039B673 /* Controllers */,
 				8DBA421A193E33C90039B673 /* UI */,
@@ -282,6 +293,8 @@
 		8DBA422E193E41A70039B673 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D2F3EA419415C960024CFF6 /* CCBackView.h */,
+				8D2F3EA519415C960024CFF6 /* CCBackView.m */,
 				8D7B7E5C193FC1050047D451 /* CCDrawingView.h */,
 				8D7B7E5D193FC1050047D451 /* CCDrawingView.m */,
 				8DBA423F193E57D20039B673 /* CCHexCollectionView.h */,
@@ -445,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBA422D193E419A0039B673 /* CCMenuView.m in Sources */,
+				8D2F3EA619415C960024CFF6 /* CCBackView.m in Sources */,
 				8DBA4241193E57D20039B673 /* CCHexCollectionView.m in Sources */,
 				8DBA4244193E58000039B673 /* CCHexCell.m in Sources */,
 				8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */,

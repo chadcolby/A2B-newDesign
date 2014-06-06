@@ -10,10 +10,12 @@
 #import "CCHexagonFlowLayout.h"
 #import "CCHexCell.h"
 #import "CCDirDataSource.h"
+#import "CCBackView.h"
 
 @interface CCHexCollectionView ()
 
 @property (strong, nonatomic) CCDirDataSource *routeDataSource;
+@property (strong, nonatomic) CCBackView *backView;
 
 @end
 
@@ -36,10 +38,14 @@
         self.dataSource = (id)self.routeDataSource;
 
         self.backgroundColor = [UIColor clearColor];
+
         [self registerNib:[CCHexCell cellNib] forCellWithReuseIdentifier:kCELL_ID];
         
         [self reloadData];
-        
+//        
+//        self.backView = [[CCBackView alloc] initWithFrame:self.bounds];
+//        [self insertSubview:self.backView belowSubview:self];
+
     }
     return self;
 }

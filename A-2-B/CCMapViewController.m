@@ -128,6 +128,7 @@
         }
         self.menuButton.alpha = 0.0f;
         self.currentLocationButton.alpha = 0.0f;
+        [self.mapView removeOverlays:self.mapView.overlays];
     }
 }
 
