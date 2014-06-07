@@ -42,9 +42,6 @@
         [self registerNib:[CCHexCell cellNib] forCellWithReuseIdentifier:kCELL_ID];
         
         [self reloadData];
-//        
-//        self.backView = [[CCBackView alloc] initWithFrame:self.bounds];
-//        [self insertSubview:self.backView belowSubview:self];
 
     }
     return self;
