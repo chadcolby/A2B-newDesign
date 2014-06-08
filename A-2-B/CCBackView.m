@@ -18,7 +18,7 @@
         self.alpha = 0.5f;
         self.exclusiveTouch = NO;
         self.userInteractionEnabled = NO;
-        NSLog(@"back view");
+
     }
     return self;
 }
