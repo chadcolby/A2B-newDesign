@@ -16,4 +16,6 @@
 @property (strong, nonatomic) CCButtons *clearButton;
 @property (strong, nonatomic) CCButtons *settingsButton;
 
+@property (strong, nonatomic) NSArray *directionsArray;
+
 @end
