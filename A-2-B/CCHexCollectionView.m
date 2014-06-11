@@ -10,12 +10,10 @@
 #import "CCHexagonFlowLayout.h"
 #import "CCHexCell.h"
 #import "CCDirDataSource.h"
-#import "CCBackView.h"
 
 @interface CCHexCollectionView ()
 
 @property (strong, nonatomic) CCDirDataSource *routeDataSource;
-@property (strong, nonatomic) CCBackView *backView;
 
 @end
 

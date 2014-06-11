@@ -13,7 +13,7 @@
 
 @interface CCDirDataSource () <UICollectionViewDataSource>
 
-
+@property (strong, nonatomic) NSMutableArray *stepsDictionariesArray;
 
 @end
 
@@ -33,25 +33,35 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (!self.dataSourceArray) {
-        return 0;
+        return 1;
     } else {
-        return self.dataSourceArray.count;
+        return self.stepsDictionariesArray.count;
     }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CCHexCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCELL_ID forIndexPath:indexPath];
-    
+    cell.distanceLabel.text = [NSString stringWithFormat:@"%@", [[self.stepsDictionariesArray objectAtIndex:indexPath.row] objectForKey:@"distanceValue"]];
     return cell;
 }
 
 - (void)reloadCollectionViewWithRoute:(MKRoute *)route
 {
     self.dataSourceArray = [NSArray arrayWithArray:route.steps];
+    if (!self.stepsDictionariesArray) {
+        self.stepsDictionariesArray = [[NSMutableArray alloc] init];
+    } else {
+        [self.stepsDictionariesArray removeAllObjects];
+    }
+    
     for (MKRouteStep *step in self.dataSourceArray) {
         NSLog(@">>>> %@", step.instructions);
+        NSDictionary *stepDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: step.instructions, @"directionStep", [NSNumber numberWithDouble:step.distance], @"distanceValue", nil];
+        [self.stepsDictionariesArray addObject:stepDictionary];
     }
+    
+    NSLog(@"END: %@", self.stepsDictionariesArray);
 }
 
 @end
