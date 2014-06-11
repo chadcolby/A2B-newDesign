@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSArray *dataSourceArray;
 @property (strong, nonatomic) id routeDataSoure;
+@property (strong, nonatomic) NSMutableArray *stepsDictionariesArray;
 
 + (CCDirDataSource *)sharedDataSource;
 - (void)reloadCollectionViewWithRoute:(id)route;

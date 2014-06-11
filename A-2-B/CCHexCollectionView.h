@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCDirDataSource.h"
 
 @interface CCHexCollectionView : UICollectionView
+
+@property (strong, nonatomic) CCDirDataSource *routeDataSource;
 
 @end

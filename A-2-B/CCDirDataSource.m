@@ -13,7 +13,7 @@
 
 @interface CCDirDataSource () <UICollectionViewDataSource>
 
-@property (strong, nonatomic) NSMutableArray *stepsDictionariesArray;
+
 
 @end
 

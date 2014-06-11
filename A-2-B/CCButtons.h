@@ -11,4 +11,6 @@
 
 @interface CCButtons : UIButton
 
+- (id)initForScrollButtonWithFrame:(CGRect)frame;
+
 @end

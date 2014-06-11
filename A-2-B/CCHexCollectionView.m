@@ -9,11 +9,11 @@
 #import "CCHexCollectionView.h"
 #import "CCHexagonFlowLayout.h"
 #import "CCHexCell.h"
-#import "CCDirDataSource.h"
+#import "CCButtons.h"
 
 @interface CCHexCollectionView ()
 
-@property (strong, nonatomic) CCDirDataSource *routeDataSource;
+
 
 @end
 
@@ -34,15 +34,23 @@
         self.routeDataSource = [CCDirDataSource sharedDataSource];
         self.scrollEnabled = YES;
         self.dataSource = (id)self.routeDataSource;
-
         self.backgroundColor = [UIColor clearColor];
-
         [self registerNib:[CCHexCell cellNib] forCellWithReuseIdentifier:kCELL_ID];
-        
+
+        UITapGestureRecognizer *tapToScroll = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollToFront:)];
+        tapToScroll.numberOfTapsRequired = 2;
+        tapToScroll.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:tapToScroll];
         [self reloadData];
 
     }
     return self;
 }
+
+- (void)scrollToFront:(CCButtons *)sender
+{
+    [self scrollRectToVisible:CGRectMake(0, 0, 320, 222) animated:YES];
+}
+
 
 @end

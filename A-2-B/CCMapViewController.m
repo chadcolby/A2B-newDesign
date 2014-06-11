@@ -30,6 +30,8 @@
 - (IBAction)menuButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet CCButtons *currentLocationButton;
 - (IBAction)currentLocationButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet CCButtons *closeButton;
+- (IBAction)closeButtonPressed:(id)sender;
 
 @end
 
@@ -71,6 +73,9 @@
         [self.view addSubview:self.mapView];
         [self.view bringSubviewToFront:self.currentLocationButton];
         [self.view bringSubviewToFront:self.menuButton];
+        self.closeButton.enabled = NO;
+        self.closeButton.alpha = 0.0f;
+        [self.view bringSubviewToFront:self.closeButton];
         
         if ([CLLocationManager locationServicesEnabled]) {
             if (!self.locationManager) {
@@ -101,6 +106,11 @@
                                                                                 CGRectGetWidth(self.view.frame), 222)];
     self.collectionView.delegate = (id)self;
     [self.view addSubview:self.collectionView];
+    [UIView animateWithDuration:0.4f animations:^{
+        self.closeButton.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        self.closeButton.enabled = YES;
+    }];
 }
 
 - (void)drawingViewSetUp
@@ -173,6 +183,21 @@
     NSLog(@"current location");
 }
 
+- (IBAction)closeButtonPressed:(id)sender
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.collectionView.alpha = 0.0f;
+        self.closeButton.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        self.closeButton.enabled = NO;
+        [self.collectionView removeFromSuperview];
+        self.menuButton.alpha = 1.0f;
+        self.currentLocationButton.alpha = 1.0f;
+        self.longPress.enabled = YES;
+        self.tapToClose.enabled = NO;
+    }];
+}
+
 #pragma mark - CCButtons actions
 
 - (void)showMenuViewAnimated:(BOOL)animated
@@ -196,6 +221,15 @@
     if (!self.collectionView) {
         [self directionsViewSetUp];
     } else {
+        [self.collectionView reloadData];
+        [self.view addSubview:self.collectionView];
+        [UIView animateWithDuration:0.4f animations:^{
+            self.collectionView.alpha = 1.0f;
+            self.closeButton.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+            self.closeButton.enabled = YES;
+
+        }];
         
     }
 
@@ -217,6 +251,10 @@
 - (void)clearMapView:(CCButtons *)sender
 {
     NSLog(@"clear");
+    [self.mapView removeOverlays:self.mapView.overlays];
+    [self.collectionView.routeDataSource.stepsDictionariesArray removeAllObjects];
+    self.menuView.clearButton.enabled = NO;
+    self.menuView.directionsButton.enabled = NO;
 }
 
 - (void)showSettings:(CCButtons *)sender
@@ -252,11 +290,11 @@
 - (void)updateMapViewWithRoutes:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:@"routesReturned"]) {
-        NSLog(@"Routes %@", notification.userInfo);
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
-        
+        self.menuView.clearButton.enabled = YES;
+        self.menuView.directionsButton.enabled = YES;
         [self.mapView addOverlay:self.routeForMap.polyline];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
     }
 }
 
@@ -274,5 +312,6 @@
         return nil;
     }
 }
+
 
 @end
