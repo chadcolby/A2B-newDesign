@@ -15,6 +15,8 @@
 @interface CCHexCell : UICollectionViewCell
 
 @property (assign, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (assign, nonatomic) IBOutlet UILabel *unitLabel;
+@property (assign, nonatomic) IBOutlet UILabel *instructionsLabel;
 
 + (UINib *)cellNib;
 
