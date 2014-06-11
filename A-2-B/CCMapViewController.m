@@ -12,12 +12,14 @@
 #import "CCMenuView.h"
 #import "CCHexCollectionView.h"
 #import "CCRouteRequestController.h"
+#import "CCSummaryView.h"
 
 @interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
 @property (strong, nonatomic) CCHexCollectionView *collectionView;
+@property (strong , nonatomic) CCSummaryView *summaryView;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
@@ -255,6 +257,7 @@
     [self.collectionView.routeDataSource.stepsDictionariesArray removeAllObjects];
     self.menuView.clearButton.enabled = NO;
     self.menuView.directionsButton.enabled = NO;
+    [self.summaryView removeFromSuperview];
 }
 
 - (void)showSettings:(CCButtons *)sender
@@ -290,11 +293,14 @@
 - (void)updateMapViewWithRoutes:(NSNotification *)notification
 {
     if ([notification.name isEqualToString:@"routesReturned"]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
+        [self.mapView addOverlay:self.routeForMap.polyline];
         self.menuView.clearButton.enabled = YES;
         self.menuView.directionsButton.enabled = YES;
-        [self.mapView addOverlay:self.routeForMap.polyline];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
+        self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
+        [self.view addSubview:self.summaryView];
+
     }
 }
 

@@ -48,7 +48,11 @@
                     NSMutableArray *routesArray = [[NSMutableArray alloc] initWithArray:response.routes];
                     NSMutableDictionary *routesInfo = [[NSMutableDictionary alloc] initWithCapacity:routesArray.count];
                     for (MKRoute *route in routesArray) {
+                        
                         [routesInfo setObject:route forKey:@"returnedRoute"];
+                        [routesInfo setObject:[NSNumber numberWithDouble:route.expectedTravelTime] forKey:@"estimatedTravelTime"];
+                        [routesInfo setObject:[NSNumber numberWithDouble:route.distance] forKey:@"totalDistance"];
+                        
                         [[CCDirDataSource sharedDataSource] reloadCollectionViewWithRoute:route];
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"routesReturned" object:self userInfo:routesInfo];
