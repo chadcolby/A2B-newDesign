@@ -14,8 +14,10 @@
 #import "CCRouteRequestController.h"
 #import "CCSummaryView.h"
 #import "CCHexCell.h"
+#import <MessageUI/MessageUI.h>
+@import AddressBook;
 
-@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, MFMessageComposeViewControllerDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
@@ -253,6 +255,36 @@
 - (void)sendMap:(CCButtons *)sender
 {
     NSLog(@"send");
+    MFMessageComposeViewController *snapShotMessageController = [[MFMessageComposeViewController alloc] init];
+    if ([MFMessageComposeViewController canSendText]) {
+        snapShotMessageController.body = @"you have a small wiener";
+        snapShotMessageController.recipients = [NSArray arrayWithObjects:@"2068985179", nil];
+        snapShotMessageController.messageComposeDelegate = self;
+        [self presentViewController:snapShotMessageController animated:YES completion:^{
+            
+        }];
+        
+    }
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    UIAlertView *failAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Message sending failed" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"Try Again", nil];
+    switch (result) {
+        case MessageComposeResultCancelled:
+            NSLog(@"cancelled");
+            break;
+        case MessageComposeResultFailed:
+            [failAlert show];
+            break;
+        case MessageComposeResultSent:
+            NSLog(@"Success");
+        default:
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)clearMapView:(CCButtons *)sender
@@ -288,7 +320,6 @@
         [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapViewWithRoutes:) name:@"routesReturned" object:nil];
-        NSLog(@"<><><><><><>");
         self.menuView.clearButton.enabled = YES;
         self.menuView.directionsButton.enabled = YES;
     }

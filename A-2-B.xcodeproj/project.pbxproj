@@ -11,6 +11,8 @@
 		8D205710194910E7009EC71D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D20570E194910E7009EC71D /* close.png */; };
 		8D205711194910E7009EC71D /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D20570F194910E7009EC71D /* close@2x.png */; };
 		8D20571419491720009EC71D /* CCSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D20571319491720009EC71D /* CCSummaryView.m */; };
+		8D38CE53194A4996006BDD34 /* CCSnapShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D38CE52194A4996006BDD34 /* CCSnapShotController.m */; };
+		8D38CE55194A4D95006BDD34 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D38CE54194A4D95006BDD34 /* MessageUI.framework */; };
 		8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */; };
 		8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5A193FC07E0047D451 /* CCLine.m */; };
 		8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5D193FC1050047D451 /* CCDrawingView.m */; };
@@ -74,6 +76,9 @@
 		8D20570F194910E7009EC71D /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		8D20571219491720009EC71D /* CCSummaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSummaryView.h; sourceTree = "<group>"; };
 		8D20571319491720009EC71D /* CCSummaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSummaryView.m; sourceTree = "<group>"; };
+		8D38CE51194A4996006BDD34 /* CCSnapShotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSnapShotController.h; sourceTree = "<group>"; };
+		8D38CE52194A4996006BDD34 /* CCSnapShotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSnapShotController.m; sourceTree = "<group>"; };
+		8D38CE54194A4D95006BDD34 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirDataSource.h; sourceTree = "<group>"; };
 		8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDirDataSource.m; sourceTree = "<group>"; };
 		8D7B7E59193FC07E0047D451 /* CCLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLine.h; sourceTree = "<group>"; };
@@ -137,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D38CE55194A4D95006BDD34 /* MessageUI.framework in Frameworks */,
 				8DA66EA1193D099D00A34A4E /* CoreGraphics.framework in Frameworks */,
 				8DA66EA3193D099D00A34A4E /* UIKit.framework in Frameworks */,
 				8DA66E9F193D099D00A34A4E /* Foundation.framework in Frameworks */,
@@ -191,6 +197,7 @@
 		8DA66E9D193D099D00A34A4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8D38CE54194A4D95006BDD34 /* MessageUI.framework */,
 				8DA66E9E193D099D00A34A4E /* Foundation.framework */,
 				8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */,
 				8DA66EA2193D099D00A34A4E /* UIKit.framework */,
@@ -277,6 +284,8 @@
 		8DBA4219193E33B90039B673 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8D38CE51194A4996006BDD34 /* CCSnapShotController.h */,
+				8D38CE52194A4996006BDD34 /* CCSnapShotController.m */,
 				8D7B7E5F193FCEF70047D451 /* CCRouteRequestController.h */,
 				8D7B7E60193FCEF70047D451 /* CCRouteRequestController.m */,
 				8DC5AEC0193D0DAD00484DCE /* CCDrawingViewController.h */,
@@ -470,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBA422D193E419A0039B673 /* CCMenuView.m in Sources */,
+				8D38CE53194A4996006BDD34 /* CCSnapShotController.m in Sources */,
 				8DBA4241193E57D20039B673 /* CCHexCollectionView.m in Sources */,
 				8DBA4244193E58000039B673 /* CCHexCell.m in Sources */,
 				8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */,
