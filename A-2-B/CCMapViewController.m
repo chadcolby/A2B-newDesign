@@ -183,7 +183,11 @@
 
 - (IBAction)currentLocationButtonPressed:(id)sender
 {
-    NSLog(@"current location");
+    if (self.locationManager) {
+        [self.locationManager startUpdatingLocation];
+        [self.mapView setCenterCoordinate:self.locationManager.location.coordinate animated:YES];
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 - (IBAction)closeButtonPressed:(id)sender
@@ -253,7 +257,6 @@
 
 - (void)clearMapView:(CCButtons *)sender
 {
-    NSLog(@"clear");
     [self.mapView removeOverlays:self.mapView.overlays];
     [self.collectionView.routeDataSource.stepsDictionariesArray removeAllObjects];
     self.menuView.clearButton.enabled = NO;
