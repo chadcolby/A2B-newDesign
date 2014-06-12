@@ -13,8 +13,9 @@
 #import "CCHexCollectionView.h"
 #import "CCRouteRequestController.h"
 #import "CCSummaryView.h"
+#import "CCHexCell.h"
 
-@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
@@ -208,7 +209,7 @@
         [UIView animateWithDuration:0.4f animations:^{
             self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 100, self.view.bounds.
                                              size.width, 100);
-            self.menuView.alpha = 0.8f;
+            self.menuButton.alpha = 0.5f;
             self.currentLocationButton.alpha = 0.5;
         } completion:^(BOOL finished) {
             self.menuButton.alpha = 0.0f;
@@ -282,7 +283,11 @@
     if (finishedLine) {
         CLLocationCoordinate2D endCoord = [self.mapView convertPoint:finishedLine.endPoint toCoordinateFromView:self.mapView];
         [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapViewWithRoutes:) name:@"routesReturned" object:nil];
+        NSLog(@"<><><><><><>");
+        self.menuView.clearButton.enabled = YES;
+        self.menuView.directionsButton.enabled = YES;
     }
     
     self.menuButton.alpha = 1.0f;
@@ -296,8 +301,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
         [self.mapView addOverlay:self.routeForMap.polyline];
-        self.menuView.clearButton.enabled = YES;
-        self.menuView.directionsButton.enabled = YES;
+
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
         [self.view addSubview:self.summaryView];
 
@@ -319,5 +323,18 @@
     }
 }
 
+#pragma mark - ScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+    if ([scrollView isEqual:self.collectionView]) {
+        for(CCHexCell *cell in self.collectionView.visibleCells) {
+            CGFloat xOffset = ((self.collectionView.contentOffset.x - cell.frame.origin.x + 300) / kCELL_WIDTH) *
+                kLABEL_OFFSET_SPEED;
+            cell.labelOffset = CGPointMake(xOffset, 12);
+        }
+    }
+}
 
 @end

@@ -42,7 +42,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CCHexCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCELL_ID forIndexPath:indexPath];
-    
+        
     cell.distanceLabel.font = [UIFont fontWithName:@"Prime-Regular" size:17.0f];
     cell.unitLabel.font = [UIFont fontWithName:@"Prime-Regular" size:17.0f];
     cell.instructionsLabel.font = [UIFont fontWithName:@"Prime-Regular" size:15.0f];
@@ -64,7 +64,7 @@
     }
     
     for (MKRouteStep *step in self.dataSourceArray) {
-        NSLog(@">>>> %@", step.instructions);
+        //NSLog(@">>>> %@", step.instructions);
         NSDictionary *stepDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: step.instructions, @"stepInstructions", [NSNumber numberWithDouble:step.distance], @"distanceValue", nil];
         [self.stepsDictionariesArray addObject:stepDictionary];
     }

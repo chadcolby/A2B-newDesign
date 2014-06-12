@@ -61,7 +61,7 @@
 - (IBAction)routeButtonPressed:(id)sender
 {
     if (self.requstedRoute) {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
             self.view.hidden = YES;
         } completion:^(BOOL finished) {
             if (finished) {

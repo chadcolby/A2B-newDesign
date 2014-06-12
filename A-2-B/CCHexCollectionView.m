@@ -13,8 +13,6 @@
 
 @interface CCHexCollectionView ()
 
-
-
 @end
 
 @implementation CCHexCollectionView
@@ -23,7 +21,8 @@
 {
     CCHexagonFlowLayout *collectionViewLayout = [[CCHexagonFlowLayout alloc] init];
     collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    collectionViewLayout.minimumInteritemSpacing = -30.0f;
+//    collectionViewLayout.minimumInteritemSpacing = -30.0f;
+    collectionViewLayout.minimumInteritemSpacing = 0.0f;
     collectionViewLayout.minimumLineSpacing = 10.0f;
     collectionViewLayout.sectionInset = UIEdgeInsetsMake(20.0f, 15.0f, 20.0f, 15.0f);
     collectionViewLayout.itemSize = kCELL_SIZE;
@@ -31,6 +30,7 @@
     
     self = [super initWithFrame:frame collectionViewLayout:collectionViewLayout];
     if (self) {
+
         self.routeDataSource = [CCDirDataSource sharedDataSource];
         self.scrollEnabled = YES;
         self.dataSource = (id)self.routeDataSource;
@@ -51,6 +51,5 @@
 {
     [self scrollRectToVisible:CGRectMake(0, 0, 320, 222) animated:YES];
 }
-
 
 @end
