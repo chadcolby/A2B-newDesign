@@ -11,11 +11,8 @@
 
 @interface CCSnapShotController : NSObject
 
-@property (strong, nonatomic) MKMapSnapshotOptions *snapShotOptions;
-@property (strong, nonatomic) UIViewController *callingVC;
-
 + (CCSnapShotController *)sharedSnapShotController;
 
-- (void)sendMapView:(MKMapView *)currentMapView fromSender:(UIViewController *)sender;
+- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute fromSender:(UIViewController *)sender;
 
 @end

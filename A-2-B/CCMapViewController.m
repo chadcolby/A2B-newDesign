@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Byte Meets World. All rights reserved.
 //
 
+#import "CCSnapShotController.h"
 #import "CCMapViewController.h"
 #import "CCDrawingViewController.h"
 #import "CCButtons.h"
@@ -15,7 +16,7 @@
 #import "CCSummaryView.h"
 #import "CCHexCell.h"
 #import <MessageUI/MessageUI.h>
-#import "CCSnapShotController.h"
+
 
 
 @interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate>
@@ -256,9 +257,7 @@
 
 - (void)sendMap:(CCButtons *)sender
 {
-    NSLog(@"send");
-    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView fromSender:self];
-
+    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap fromSender:self];
 }
 
 - (void)clearMapView:(CCButtons *)sender
@@ -272,7 +271,7 @@
 
 - (void)showSettings:(CCButtons *)sender
 {
-    NSLog(@"settings");
+    
 }
 
 #pragma mark - DrawingViewDelegate
