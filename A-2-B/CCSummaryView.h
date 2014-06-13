@@ -13,6 +13,6 @@
 @property (strong, nonatomic) UILabel *estimatedTimeLabel;
 @property (strong, nonatomic) UILabel *totalDistanceLabel;
 
-- (id)initWIthEstimatedTime:(NSNumber *)estimatedTime andDistance:(NSNumber *)distance andFrame:(CGRect)frame;
+- (id)initWIthEstimatedTime:(NSString *)estimatedTime andDistance:(NSString *)distance andFrame:(CGRect)frame;
 
 @end

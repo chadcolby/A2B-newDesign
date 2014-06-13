@@ -64,7 +64,6 @@
     }
     
     for (MKRouteStep *step in self.dataSourceArray) {
-        //NSLog(@">>>> %@", step.instructions);
         NSDictionary *stepDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: step.instructions, @"stepInstructions", [NSNumber numberWithDouble:step.distance], @"distanceValue", nil];
         [self.stepsDictionariesArray addObject:stepDictionary];
     }

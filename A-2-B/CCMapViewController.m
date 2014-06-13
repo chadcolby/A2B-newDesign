@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UITapGestureRecognizer *tapToClose;
 
 @property (strong, nonatomic) MKRoute *routeForMap;
+@property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
 
 @property (weak, nonatomic) IBOutlet CCButtons *menuButton;
 - (IBAction)menuButtonPressed:(id)sender;
@@ -147,6 +148,9 @@
         self.menuButton.alpha = 0.0f;
         self.currentLocationButton.alpha = 0.0f;
         [self.mapView removeOverlays:self.mapView.overlays];
+        if (self.summaryView) {
+            [self.summaryView removeFromSuperview];
+        }
     }
 }
 
@@ -257,7 +261,7 @@
 
 - (void)sendMap:(CCButtons *)sender
 {
-    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap fromSender:self];
+    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap andRequest:self.directionsRequest fromSender:self];
 }
 
 - (void)clearMapView:(CCButtons *)sender
@@ -307,6 +311,7 @@
     if ([notification.name isEqualToString:@"routesReturned"]) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routesReturned" object:nil];
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
+        self.directionsRequest = [notification.userInfo objectForKey:@"request"];
         [self.mapView addOverlay:self.routeForMap.polyline];
 
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];

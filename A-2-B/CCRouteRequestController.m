@@ -37,7 +37,7 @@
             MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
             [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:endPlacemark]];
             [directionsRequest setSource:[[MKMapItem alloc] initWithPlacemark:startPlacemark]];
-            directionsRequest.transportType = MKDirectionsTransportTypeAny;
+            directionsRequest.transportType = MKDirectionsTransportTypeAutomobile;
             
             MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
             [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
@@ -47,10 +47,15 @@
                 {
                     NSMutableArray *routesArray = [[NSMutableArray alloc] initWithArray:response.routes];
                     NSMutableDictionary *routesInfo = [[NSMutableDictionary alloc] initWithCapacity:routesArray.count];
+                    [routesInfo setObject:directionsRequest forKey:@"request"];
                     for (MKRoute *route in routesArray) {
+                        NSString *timeString = [self formattedStringForDuration:route.expectedTravelTime];
+                        double milesFromMeters = route.distance * 0.000621371;
+                        NSString *distanceString = [NSString stringWithFormat:@"%.2f miles", milesFromMeters];
+                        NSLog(@"%@ and %f", distanceString, route.distance);
                         [routesInfo setObject:route forKey:@"returnedRoute"];
-                        [routesInfo setObject:[NSNumber numberWithDouble:route.expectedTravelTime] forKey:@"estimatedTravelTime"];
-                        [routesInfo setObject:[NSNumber numberWithDouble:route.distance] forKey:@"totalDistance"];
+                        [routesInfo setObject:timeString forKey:@"estimatedTravelTime"];
+                        [routesInfo setObject:distanceString forKey:@"totalDistance"];
                         
                         [[CCDirDataSource sharedDataSource] reloadCollectionViewWithRoute:route];
                     }
@@ -61,5 +66,12 @@
             
         }
     }];
+}
+
+- (NSString*)formattedStringForDuration:(NSTimeInterval)duration
+{
+    NSInteger minutes = floor(duration/60);
+    NSInteger seconds = round(duration - minutes * 60);
+    return [NSString stringWithFormat:@"%ld:%02ld min.", (long)minutes, (long)seconds];
 }
 @end

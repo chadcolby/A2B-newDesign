@@ -31,7 +31,7 @@
     
 }
 
-- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute fromSender:(UIViewController *)sender
+- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute andRequest:(MKDirectionsRequest *)dirRequest fromSender:(UIViewController *)sender
 {
 
     if (!self.snapShotOptions) {
@@ -52,6 +52,7 @@
             CGRect imageRect = CGRectMake(0.0f, 0.0f, snapshot.image.size.width, snapshot.image.size.height);
             
             [snapshot.image drawInRect:imageRect];
+            
             NSInteger firstIndexPoint = 0;
             NSInteger lastIndexPoint = 0;
             BOOL isFirstPoint = NO;
@@ -101,6 +102,17 @@
                 }
             }
             
+            for (MKMapItem *item in @[dirRequest.source, dirRequest.destination]) {
+                CGPoint annotationPoint = [snapshot pointForCoordinate:item.placemark.location.coordinate];
+                if (CGRectContainsPoint(imageRect, annotationPoint)) {
+                    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:nil];
+                    pin.pinColor = [item isEqual:dirRequest.source] ? MKPinAnnotationColorGreen : MKPinAnnotationColorRed;
+                    annotationPoint.x = annotationPoint.x + pin.centerOffset.x - (pin.bounds.size.width / 2);
+                    annotationPoint.y = annotationPoint.y + pin.centerOffset.y - (pin.bounds.size.height / 2);
+                    [pin.image drawAtPoint:annotationPoint];
+                }
+            }
+            
             CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:185.f/255 green:61.f/255 blue:76.f/255 alpha:1.f].CGColor);
             CGContextStrokePath(context);
             
@@ -145,11 +157,6 @@
     [self.sendingViewController dismissViewControllerAnimated:YES completion:^{
         self.sendingViewController = NULL;
     }];
-}
-
-- (void)routeRecovered:(NSNotification *)notification
-{
-    NSLog(@"<><><><><>");
 }
 
 @end

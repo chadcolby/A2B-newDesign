@@ -19,7 +19,7 @@
     return self;
 }
 
-- (id)initWIthEstimatedTime:(NSNumber *)estimatedTime andDistance:(NSNumber *)distance andFrame:(CGRect)frame
+- (id)initWIthEstimatedTime:(NSString *)estimatedTime andDistance:(NSString *)distance andFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -27,15 +27,16 @@
         self.layer.cornerRadius = 10.0f;
         
         self.backgroundColor = [UIColor blackColor];
-        self.alpha = 0.4f;
+        self.alpha = 0.5f;
         self.estimatedTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height / 2)];
-        self.estimatedTimeLabel.text = [NSString stringWithFormat:@"%@", estimatedTime];
+        self.estimatedTimeLabel.numberOfLines = 2.0;
+        self.estimatedTimeLabel.text = estimatedTime;
         self.estimatedTimeLabel.font = [UIFont fontWithName:@"Prime-Regular" size:10.f];
         self.estimatedTimeLabel.textAlignment = NSTextAlignmentCenter;
         self.estimatedTimeLabel.textColor = [UIColor whiteColor];
         [self addSubview:self.estimatedTimeLabel];
         self.totalDistanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height / 2, self.bounds.size.width, self.bounds.size.height / 2)];
-        self.totalDistanceLabel.text = [NSString stringWithFormat:@"%@", distance];
+        self.totalDistanceLabel.text = distance;
         self.totalDistanceLabel.font = [UIFont fontWithName:@"Prime-Regular" size:10.f];
         self.totalDistanceLabel.textAlignment = NSTextAlignmentCenter;
         self.totalDistanceLabel.textColor = [UIColor whiteColor];
@@ -44,13 +45,5 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
