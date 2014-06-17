@@ -7,7 +7,7 @@
         <!--Map View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="CCMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="CCMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -60,23 +60,39 @@
             </objects>
             <point key="canvasLocation" x="16" y="57"/>
         </scene>
-        <!--Directions View Controller-->
-        <scene sceneID="cJ1-Lx-hpT">
+        <!--Step By Step View Controller-->
+        <scene sceneID="jfh-gT-S9E">
             <objects>
-                <viewController storyboardIdentifier="directionsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oo1-eL-dB9" customClass="CCDirectionsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="stepByStepVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sht-ZJ-FCX" customClass="CCStepByStepViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bym-hZ-mPR"/>
-                        <viewControllerLayoutGuide type="bottom" id="R4k-2S-f42"/>
+                        <viewControllerLayoutGuide type="top" id="ciV-pr-rVc"/>
+                        <viewControllerLayoutGuide type="bottom" id="q6f-pz-zCC"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cgd-gN-gg9">
+                    <view key="view" contentMode="scaleToFill" id="3TS-Rd-wtR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84M-qL-1yM" customClass="DRDynamicSlideShow">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="AtT-dr-Ern">
+                                <rect key="frame" x="135" y="500" width="50" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.66666666669999997" green="0.1814271921" blue="0.1077562371" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="pageControl" destination="AtT-dr-Ern" id="pa3-Yp-PNL"/>
+                        <outlet property="stepSlideShow" destination="84M-qL-1yM" id="tX3-uQ-peL"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wZU-Cw-jx1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mij-gg-fd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538" y="-485"/>
+            <point key="canvasLocation" x="597" y="715"/>
         </scene>
         <!--Drawing View Controller-->
         <scene sceneID="bXm-6a-1dH">

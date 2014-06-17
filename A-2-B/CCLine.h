@@ -12,5 +12,10 @@
 
 @property (nonatomic) CGPoint startPoint;
 @property (nonatomic) CGPoint endPoint;
+@property (strong, nonatomic) UIButton *fineTuneButton;
+
+@property (nonatomic) BOOL canBeMoved;
+
+- (void)updateFineTuneButtonLocation:(CGPoint)location;
 
 @end

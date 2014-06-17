@@ -15,6 +15,7 @@
 #import "CCRouteRequestController.h"
 #import "CCSummaryView.h"
 #import "CCHexCell.h"
+#import "CCStepByStepViewController.h"
 #import <MessageUI/MessageUI.h>
 
 
@@ -234,34 +235,43 @@
 
 - (void)showDirections:(CCButtons *)sender
 {
-    if (!self.collectionView) {
-        [self directionsViewSetUp];
-    } else {
-        [self.collectionView reloadData];
-        [self.view addSubview:self.collectionView];
-        [UIView animateWithDuration:0.4f animations:^{
-            self.collectionView.alpha = 1.0f;
-            self.closeButton.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            self.closeButton.enabled = YES;
-
-        }];
-        
-    }
-
-    [UIView animateWithDuration:0.4f animations:^{
-        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
-        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);        
-    } completion:^(BOOL finished) {
-        self.longPress.enabled = NO;
-        self.tapToClose.enabled = NO;
-    }];
+//    if (!self.collectionView) {
+//        [self directionsViewSetUp];
+//    } else {
+//        [self.collectionView reloadData];
+//        [self.view addSubview:self.collectionView];
+//        [UIView animateWithDuration:0.4f animations:^{
+//            self.collectionView.alpha = 1.0f;
+//            self.closeButton.alpha = 1.0f;
+//        } completion:^(BOOL finished) {
+//            self.closeButton.enabled = YES;
+//
+//        }];
+//        
+//    }
+//
+//    [UIView animateWithDuration:0.4f animations:^{
+//        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+//        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);        
+//    } completion:^(BOOL finished) {
+//        self.longPress.enabled = NO;
+//        self.tapToClose.enabled = NO;
+//    }];
+    CCStepByStepViewController *stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepByStepVC"];
+    [self addChildViewController:stepViewController];
+    
+    stepViewController.view.frame = self.mapView.frame;
+    [self.view addSubview:stepViewController.view];
+    [stepViewController didMoveToParentViewController:self];
+    
+    self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
 
 }
 
 - (void)sendMap:(CCButtons *)sender
 {
-    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap andRequest:self.directionsRequest fromSender:self];
+    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap
+                                                      andRequest:self.directionsRequest fromSender:self];
 }
 
 - (void)clearMapView:(CCButtons *)sender

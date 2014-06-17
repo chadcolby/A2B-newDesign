@@ -16,5 +16,6 @@
 
 + (CCDirDataSource *)sharedDataSource;
 - (void)reloadCollectionViewWithRoute:(id)route;
+- (NSArray *)routeDataForStepSlideShow;
 
 @end

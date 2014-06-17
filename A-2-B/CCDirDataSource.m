@@ -112,5 +112,15 @@
     return convertedDistanceAndUnitsArray;
 }
 
+- (NSArray *)routeDataForStepSlideShow
+{
+    if (self.stepsDictionariesArray) {
+        NSArray *routeArray = [NSArray arrayWithArray:self.stepsDictionariesArray];
+        return routeArray;
+    } else {
+        return nil;
+    }
+    
+}
 
 @end

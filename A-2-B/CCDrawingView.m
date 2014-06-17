@@ -48,11 +48,13 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"canBeMoved" object:nil];
     for (UITouch *finger in touches) {
         
         if (self.completedLines.count >= 1) {
             [self clearLines];
         }
+        
         NSValue *key = [NSValue valueWithNonretainedObject:finger];
         CGPoint lock = [finger locationInView:self];
         CCLine *anotherLine = [[CCLine alloc] init];
@@ -93,6 +95,7 @@
 
 - (void) drawingDidEnd:(NSSet *)touches
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redrawLine:andLine:) name:@"canBeMoved" object:nil];
     for (UITouch *touch in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:touch];
         CCLine *finishedLine = [self.linesInProgress objectForKey:key];
@@ -101,9 +104,22 @@
             [self.completedLines addObject:finishedLine];
             [self.linesInProgress removeObjectForKey:key];
             [self.delegate drawingEventFinishedWithLine:finishedLine];
+            [finishedLine updateFineTuneButtonLocation:finishedLine.endPoint];
+            [self addSubview:finishedLine.fineTuneButton];
+            [self redrawLine:nil andLine:finishedLine];
+
         }
     }
+
     [self setNeedsDisplay];
+}
+
+- (void)redrawLine:(NSNotification *)notification andLine:(CCLine *)lineToMove
+{
+
+    if (!notification) {
+        NSLog(@"line %f and %f", lineToMove.endPoint.x, lineToMove.endPoint.y);
+    }
 }
 
 @end
