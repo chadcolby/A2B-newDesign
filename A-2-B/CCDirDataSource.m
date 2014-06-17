@@ -64,7 +64,8 @@
     }
     
     for (MKRouteStep *step in self.dataSourceArray) {
-        NSDictionary *stepDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: step.instructions, @"stepInstructions", [NSNumber numberWithDouble:step.distance], @"distanceValue", nil];
+        NSString *stringFromDistance = [self convertDistanceToString:step.distance];
+        NSDictionary *stepDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: step.instructions, @"stepInstructions", [NSNumber numberWithDouble:step.distance], @"distanceValue", stringFromDistance, @"stringDistance", nil];
         [self.stepsDictionariesArray addObject:stepDictionary];
     }
     
@@ -110,6 +111,43 @@
     
     NSArray *convertedDistanceAndUnitsArray = [NSArray arrayWithObjects:convertedString, unitsString, nil];
     return convertedDistanceAndUnitsArray;
+}
+
+- (NSString *)convertDistanceToString:(double)doubleMeters    //returns appropriate distance values
+{
+    NSNumber *metersToConvert = [NSNumber numberWithDouble:doubleMeters];
+    NSString *convertedString;
+
+    if ([metersToConvert doubleValue] == 0.0) {
+        convertedString = @"Start";
+    } else if ([metersToConvert doubleValue] <= 201.17) {
+        CGFloat feetFloat = ([metersToConvert floatValue] * 3.28084);
+        convertedString = [NSString stringWithFormat:@"in %.0f feet", feetFloat];
+
+    } else if ([metersToConvert doubleValue] <= 402.33) {
+        convertedString = @"in 1/4 mile";   //quarter mile
+
+    } else if ([metersToConvert doubleValue] <= 531.09) {
+        convertedString = @"in 1/3 mile";
+
+    } else if ([metersToConvert doubleValue] <= 804.67) {
+        convertedString = @"in 1/2 mile";
+
+    } else if ([metersToConvert doubleValue] <= 1062.62) {
+        convertedString = @"in 2/3 mile";
+
+    } else if ([metersToConvert doubleValue] <= 1207.01) {
+        convertedString = @"in 3/4 mile";
+
+    }  else if ([metersToConvert doubleValue] <= 1408.18) {
+        convertedString = @"in 7/8 mile";
+
+    } else {
+        CGFloat mileHolder = ([metersToConvert floatValue] * 0.000621371);
+        convertedString = [NSString stringWithFormat:@"in %.2f mile", mileHolder];
+    }
+    
+    return convertedString;
 }
 
 - (NSArray *)routeDataForStepSlideShow

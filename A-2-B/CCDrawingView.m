@@ -118,7 +118,7 @@
 {
 
     if (!notification) {
-        NSLog(@"line %f and %f", lineToMove.endPoint.x, lineToMove.endPoint.y);
+
     }
 }
 

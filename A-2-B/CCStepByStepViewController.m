@@ -12,8 +12,11 @@
 
 @interface CCStepByStepViewController ()
 
-@property (strong, nonatomic) NSArray *distancesArray;
-@property (strong, nonatomic) NSArray *instructionsArray;
+@property (strong, nonatomic) NSMutableArray *distancesArray;
+@property (strong, nonatomic) NSMutableArray *instructionsArray;
+@property (strong, nonatomic) NSArray *routeArray;
+
+@property (strong, nonatomic) NSMutableArray *viewsArray;
 
 @end
 
@@ -23,11 +26,12 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
-    [self slideShowSetUp];
-    
-    NSArray *someArray = [[CCDirDataSource sharedDataSource] routeDataForStepSlideShow];
-    NSLog(@"%@", someArray);
-
+    self.routeArray = [[CCDirDataSource sharedDataSource] routeDataForStepSlideShow];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSlideShow:) name:@"stepByStepComplete" object:nil];
+    if (self.routeArray != nil) {
+        [self slideShowSetUp];
+        NSLog(@"RUNNING");
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,25 +42,57 @@
 
 - (void)slideShowSetUp
 {
-    self.stepSlideShow.backgroundColor = [UIColor clearColor];
-    self.instructionsArray = [NSArray arrayWithObjects:@"Turn left", @"Turn Right", @"Go Straight", @"End at Destination", nil];
-    self.distancesArray = [NSArray arrayWithObjects:@"3 miles", @"500 feet", @"1/4 mile", @"10 miles", nil];
+    self.routeArray = [[CCDirDataSource sharedDataSource] routeDataForStepSlideShow];
+    self.viewsArray = [[NSMutableArray alloc] initWithCapacity:self.routeArray.count];
     
-    [self.stepSlideShow setContentSize:CGSizeMake(320.0f * self.distancesArray.count, self.view.bounds.size.height)];
+    [self.stepSlideShow setContentSize:CGSizeMake(320.0f * self.routeArray.count, self.view.bounds.size.height)];
     [self.stepSlideShow setDidReachPageBlock:^(NSInteger reachedPage) {
         self.pageControl.currentPage = reachedPage;
+        NSLog(@"%ld", (long)reachedPage);
     }];
     
     self.pageControl.numberOfPages = self.distancesArray.count;
+
+    self.distancesArray = [[NSMutableArray alloc] init];
+    self.instructionsArray = [[NSMutableArray alloc] init];
     
-    for (NSInteger i = 0; i < self.distancesArray.count; i++) {
-        CCStepView *stepView = [[CCStepView alloc] initWithFrame:self.view.bounds AndDistance:[self.distancesArray objectAtIndex:i] AndInstructions:[self.instructionsArray objectAtIndex:i]];
-        
-        [self.stepSlideShow addAnimation:[DRDynamicSlideShowAnimation animationForSubview:stepView.distanceLabel page:i keyPath:@"center" toValue:[NSValue valueWithCGPoint:CGPointMake(stepView.distanceLabel.center.x+self.stepSlideShow.frame.size.width, stepView.distanceLabel.center.y-self.stepSlideShow.frame.size.height)] delay:0]];
-        
-        [self.stepSlideShow addAnimation:[DRDynamicSlideShowAnimation animationForSubview:stepView.instructionLabel page:i keyPath:@"center" toValue:[NSValue valueWithCGPoint:CGPointMake(stepView.instructionLabel.center.x+self.stepSlideShow.frame.size.width, stepView.instructionLabel.center.y-self.stepSlideShow.frame.size.height)] delay:0]];
-        [self.stepSlideShow addSubview:stepView onPage:i];
+    NSOperationQueue *someQueue = [[NSOperationQueue alloc] init];
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        for (NSInteger i = 0; i < 100; i++) {
+            NSLog(@"%lu", i);
+        }
+    }];
+    [operation setCompletionBlock:^{
+        NSLog(@"all done");
+    }];
+    
+    [someQueue addOperation:operation];
+//        for (NSInteger j = 0; j < self.routeArray.count; j++) {
+//                NSString *distString = [[self.routeArray objectAtIndex:j] objectForKey:@"stringDistance"];
+//                NSString *instructString = [[self.routeArray objectAtIndex:j] objectForKey:@"stepInstructions"];
+//                NSLog(@"in %@ %@", distString, instructString);
+//                CCStepView *stepView = [[CCStepView alloc] initWithFrame:self.view.bounds AndDistance:distString AndInstructions:instructString];
+//                [self.stepSlideShow addAnimation:[DRDynamicSlideShowAnimation animationForSubview:stepView.distanceLabel page:j keyPath:@"center" toValue:[NSValue valueWithCGPoint:CGPointMake(stepView.distanceLabel.center.x+self.stepSlideShow.frame.size.width, stepView.distanceLabel.center.y-self.stepSlideShow.frame.size.height)] delay:0]];
+//                
+//                [self.stepSlideShow addAnimation:[DRDynamicSlideShowAnimation animationForSubview:stepView.instructionLabel page:j keyPath:@"center" toValue:[NSValue valueWithCGPoint:CGPointMake(stepView.instructionLabel.center.x+self.stepSlideShow.frame.size.width, stepView.instructionLabel.center.y-self.stepSlideShow.frame.size.height)] delay:0]];
+//                [self.viewsArray addObject:stepView];
+//
+//                [self.stepSlideShow addSubview:stepView onPage:j];
+//        }
+}
+
+- (void)updateSlideShow:(NSNotification *)notification
+{
+    NSArray *views = [notification.userInfo objectForKey:@"viewsArray"];
+    NSLog(@">>>>>> %@", views);
+    NSInteger counter = 0;
+    for (CCStepView *step in views) {
+        NSLog(@"%lu", counter);
+        [self.stepSlideShow addSubview:step onPage:counter];
+        counter ++;
     }
+//    [self.delegate subViewsCreated];
+
 }
 
 /*

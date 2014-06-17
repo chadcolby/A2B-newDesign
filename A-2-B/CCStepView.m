@@ -22,6 +22,9 @@
         self.distanceLabel.textColor = [UIColor redColor];
         self.instructionLabel.textColor = [UIColor redColor];
         
+        self.distanceLabel.backgroundColor = [UIColor whiteColor];
+        self.instructionLabel.backgroundColor = [UIColor whiteColor];
+        
         self.distanceLabel.text = distance;
         self.instructionLabel.text = instructions;
         
@@ -31,5 +34,7 @@
     }
     return self;
 }
+
+
 
 @end

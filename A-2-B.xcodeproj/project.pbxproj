@@ -19,6 +19,7 @@
 		8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5D193FC1050047D451 /* CCDrawingView.m */; };
 		8D7B7E61193FCEF70047D451 /* CCRouteRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E60193FCEF70047D451 /* CCRouteRequestController.m */; };
 		8D973B4C194FB67300649F5E /* CCStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D973B4B194FB67300649F5E /* CCStepView.m */; };
+		8D973B4F1950C7BA00649F5E /* CCStepByStepOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */; };
 		8DA66E9F193D099D00A34A4E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66E9E193D099D00A34A4E /* Foundation.framework */; };
 		8DA66EA1193D099D00A34A4E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */; };
 		8DA66EA3193D099D00A34A4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA2193D099D00A34A4E /* UIKit.framework */; };
@@ -93,6 +94,8 @@
 		8D7B7E60193FCEF70047D451 /* CCRouteRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCRouteRequestController.m; sourceTree = "<group>"; };
 		8D973B4A194FB67300649F5E /* CCStepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStepView.h; sourceTree = "<group>"; };
 		8D973B4B194FB67300649F5E /* CCStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCStepView.m; sourceTree = "<group>"; };
+		8D973B4D1950C7BA00649F5E /* CCStepByStepOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStepByStepOperation.h; sourceTree = "<group>"; };
+		8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCStepByStepOperation.m; sourceTree = "<group>"; };
 		8DA66E9B193D099D00A34A4E /* A-2-B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A-2-B.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA66E9E193D099D00A34A4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -219,6 +222,8 @@
 				8DA66EAD193D099D00A34A4E /* CCAppDelegate.h */,
 				8DA66EAE193D099D00A34A4E /* CCAppDelegate.m */,
 				8DA66EB0193D099D00A34A4E /* Main.storyboard */,
+				8D973B4D1950C7BA00649F5E /* CCStepByStepOperation.h */,
+				8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */,
 				8D7B7E62193FE4870047D451 /* Models */,
 				8DBA422E193E41A70039B673 /* Views */,
 				8DBA4219193E33B90039B673 /* Controllers */,
@@ -498,6 +503,7 @@
 				8DA66EAF193D099D00A34A4E /* CCAppDelegate.m in Sources */,
 				8DC5AEC2193D0DAD00484DCE /* CCDrawingViewController.m in Sources */,
 				8DA66EAB193D099D00A34A4E /* main.m in Sources */,
+				8D973B4F1950C7BA00649F5E /* CCStepByStepOperation.m in Sources */,
 				8D7B7E61193FCEF70047D451 /* CCRouteRequestController.m in Sources */,
 				8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */,
 				8D20571419491720009EC71D /* CCSummaryView.m in Sources */,

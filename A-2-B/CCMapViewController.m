@@ -20,12 +20,13 @@
 
 
 
-@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, StepByStepViewsDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
 @property (strong, nonatomic) CCHexCollectionView *collectionView;
 @property (strong , nonatomic) CCSummaryView *summaryView;
+@property (strong, nonatomic) CCStepByStepViewController *stepViewController;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
@@ -189,6 +190,8 @@
         self.tapToClose.enabled = YES;
     }
     [self showMenuViewAnimated:YES];
+    
+
 }
 
 - (IBAction)currentLocationButtonPressed:(id)sender
@@ -257,15 +260,25 @@
 //        self.longPress.enabled = NO;
 //        self.tapToClose.enabled = NO;
 //    }];
-    CCStepByStepViewController *stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepByStepVC"];
-    [self addChildViewController:stepViewController];
     
-    stepViewController.view.frame = self.mapView.frame;
-    [self.view addSubview:stepViewController.view];
-    [stepViewController didMoveToParentViewController:self];
-    
-    self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+    [UIView animateWithDuration:0.4f animations:^{
+        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height,
+                                         self.view.bounds.size.width, 100);
+    } completion:^(BOOL finished) {
+        self.stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepByStepVC"];
+        self.stepViewController.delegate = self;
+        [self addChildViewController:self.stepViewController];
+        self.stepViewController.view.frame = self.mapView.bounds;
+        [self.view addSubview:self.stepViewController.view];
+        [self.stepViewController didMoveToParentViewController:self];
+    }];
 
+
+}
+
+- (void)subViewsCreated
+{
+        
 }
 
 - (void)sendMap:(CCButtons *)sender
