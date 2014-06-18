@@ -59,7 +59,7 @@
                         
                         [[CCDirDataSource sharedDataSource] reloadCollectionViewWithRoute:route];
                     }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"routesReturned" object:self userInfo:routesInfo];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"routesReturned"object:self userInfo:routesInfo];
 
                 }
             }];

@@ -54,7 +54,7 @@
     return cell;
 }
 
-- (void)reloadCollectionViewWithRoute:(MKRoute *)route  //called but route controller to update collectionView
+- (void)reloadCollectionViewWithRoute:(MKRoute *)route  //called by route controller to update collectionView
 {
     self.dataSourceArray = [NSArray arrayWithArray:route.steps];
     if (!self.stepsDictionariesArray) {

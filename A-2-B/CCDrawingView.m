@@ -95,7 +95,6 @@
 
 - (void) drawingDidEnd:(NSSet *)touches
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redrawLine:andLine:) name:@"canBeMoved" object:nil];
     for (UITouch *touch in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:touch];
         CCLine *finishedLine = [self.linesInProgress objectForKey:key];
@@ -104,22 +103,11 @@
             [self.completedLines addObject:finishedLine];
             [self.linesInProgress removeObjectForKey:key];
             [self.delegate drawingEventFinishedWithLine:finishedLine];
-            [finishedLine updateFineTuneButtonLocation:finishedLine.endPoint];
-            [self addSubview:finishedLine.fineTuneButton];
-            [self redrawLine:nil andLine:finishedLine];
 
         }
     }
 
     [self setNeedsDisplay];
-}
-
-- (void)redrawLine:(NSNotification *)notification andLine:(CCLine *)lineToMove
-{
-
-    if (!notification) {
-
-    }
 }
 
 @end

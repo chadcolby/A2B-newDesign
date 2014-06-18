@@ -2,7 +2,7 @@
 //  CCStepView.m
 //  A-2-B
 //
-//  Created by Chad D Colby on 6/16/14.
+//  Created by Chad D Colby on 6/18/14.
 //  Copyright (c) 2014 Byte Meets World. All rights reserved.
 //
 
@@ -16,25 +16,17 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 280, 30)];
-        self.instructionLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 140, 280, 100)];
-        self.instructionLabel.numberOfLines = 3;
-        self.distanceLabel.textColor = [UIColor redColor];
-        self.instructionLabel.textColor = [UIColor redColor];
-        
-        self.distanceLabel.backgroundColor = [UIColor whiteColor];
-        self.instructionLabel.backgroundColor = [UIColor whiteColor];
+        self.distanceLabel = [[CCStepLabel alloc] initWithFrame:CGRectMake(100, 30, 120, 30)];
+        self.instructionLabel = [[CCStepLabel alloc] initWithFrame:CGRectMake(20, self.bounds.size.height - 130, 280, 100)];
         
         self.distanceLabel.text = distance;
         self.instructionLabel.text = instructions;
         
         [self addSubview:self.distanceLabel];
         [self addSubview:self.instructionLabel];
-
+        
     }
     return self;
 }
-
-
 
 @end

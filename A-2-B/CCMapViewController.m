@@ -13,20 +13,22 @@
 #import "CCMenuView.h"
 #import "CCHexCollectionView.h"
 #import "CCRouteRequestController.h"
-#import "CCSummaryView.h"
+#import "CCStepViewController.h"
 #import "CCHexCell.h"
-#import "CCStepByStepViewController.h"
+#import "CCSummaryView.h"
 #import <MessageUI/MessageUI.h>
 
 
 
-@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, StepByStepViewsDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, StepViewDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
 @property (strong, nonatomic) CCHexCollectionView *collectionView;
 @property (strong , nonatomic) CCSummaryView *summaryView;
-@property (strong, nonatomic) CCStepByStepViewController *stepViewController;
+@property (strong, nonatomic) CCStepViewController *stepViewController;
+
+@property (nonatomic) BOOL stepsCanBeShow;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
@@ -76,6 +78,7 @@
 - (void)mapViewInitialSetUp
 {
     if (!self.mapView) {
+        self.stepsCanBeShow = NO;
         self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
@@ -149,9 +152,11 @@
         }
         self.menuButton.alpha = 0.0f;
         self.currentLocationButton.alpha = 0.0f;
+        self.stepsCanBeShow = NO;
         [self.mapView removeOverlays:self.mapView.overlays];
         if (self.summaryView) {
             [self.summaryView removeFromSuperview];
+
         }
     }
 }
@@ -182,6 +187,7 @@
         [self.view addGestureRecognizer:self.tapToClose];
         
         [self.menuView.directionsButton addTarget:self action:@selector(showDirections:) forControlEvents:UIControlEventTouchUpInside];
+        self.menuView.directionsButton.enabled = NO;
         [self.menuView.forwardButton addTarget:self action:@selector(sendMap:) forControlEvents:UIControlEventTouchUpInside];
         [self.menuView.clearButton addTarget:self action:@selector(clearMapView:) forControlEvents:UIControlEventTouchUpInside];
         [self.menuView.settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
@@ -223,6 +229,10 @@
 - (void)showMenuViewAnimated:(BOOL)animated
 {
     if (animated) {
+        if (self.stepsCanBeShow) {
+            self.menuView.directionsButton.enabled = YES;
+        }
+        
         [UIView animateWithDuration:0.4f animations:^{
             self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 100, self.view.bounds.
                                              size.width, 100);
@@ -238,6 +248,9 @@
 
 - (void)showDirections:(CCButtons *)sender
 {
+    if (!self.stepViewController) {
+        NSLog(@"NOT");
+    }
 //    if (!self.collectionView) {
 //        [self directionsViewSetUp];
 //    } else {
@@ -260,25 +273,17 @@
 //        self.longPress.enabled = NO;
 //        self.tapToClose.enabled = NO;
 //    }];
-    
+    self.summaryView.hidden = YES;
     [UIView animateWithDuration:0.4f animations:^{
-        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height,
-                                         self.view.bounds.size.width, 100);
+        self.stepViewController.view.alpha = 1.0f;
+        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width,
+                                         100);
     } completion:^(BOOL finished) {
-        self.stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepByStepVC"];
-        self.stepViewController.delegate = self;
-        [self addChildViewController:self.stepViewController];
-        self.stepViewController.view.frame = self.mapView.bounds;
-        [self.view addSubview:self.stepViewController.view];
-        [self.stepViewController didMoveToParentViewController:self];
+        self.longPress.enabled = NO;
+        self.tapToClose.enabled = NO;
     }];
+    
 
-
-}
-
-- (void)subViewsCreated
-{
-        
 }
 
 - (void)sendMap:(CCButtons *)sender
@@ -294,6 +299,10 @@
     self.menuView.clearButton.enabled = NO;
     self.menuView.directionsButton.enabled = NO;
     [self.summaryView removeFromSuperview];
+    self.stepsCanBeShow = NO;
+    [self.stepViewController.view removeFromSuperview];
+    [self.stepViewController removeFromParentViewController];
+
 }
 
 - (void)showSettings:(CCButtons *)sender
@@ -339,7 +348,18 @@
 
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
         [self.view addSubview:self.summaryView];
-
+        
+        if (!self.stepViewController) {
+            self.stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepViewController"];
+            [self addChildViewController:self.stepViewController];
+            self.stepViewController.view.frame = self.mapView.bounds;
+            
+            self.stepViewController.delegate = self;
+            [self.view addSubview:self.stepViewController.view];
+            [self.stepViewController didMoveToParentViewController:self];
+            self.stepViewController.view.alpha = 0.0f;
+        }
+        [self.stepViewController shouldBeginSlideShowSetUp:YES];
     }
 }
 
@@ -358,18 +378,30 @@
     }
 }
 
-#pragma mark - ScrollViewDelegate
+#pragma mark - StepViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)finishedUpdatingStepViews:(BOOL)finished
+{
+    if (finished) {
+        self.stepsCanBeShow = finished;
+        self.menuView.directionsButton.enabled = YES;
+    }
+}
+
+- (void)stepsCloseButtonPressed
 {
 
-    if ([scrollView isEqual:self.collectionView]) {
-        for(CCHexCell *cell in self.collectionView.visibleCells) {
-            CGFloat xOffset = ((self.collectionView.contentOffset.x - cell.frame.origin.x + 300) / kCELL_WIDTH) *
-                kLABEL_OFFSET_SPEED;
-            cell.labelOffset = CGPointMake(xOffset, 12);
-        }
-    }
+    [UIView animateWithDuration:0.4 animations:^{
+        self.stepViewController.view.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.4f animations:^{
+            self.menuButton.alpha = 1.0f;
+            self.currentLocationButton.alpha = 1.0f;
+        } completion:^(BOOL finished) {
+            self.tapToClose.enabled = NO;
+            self.longPress.enabled = YES;
+        }];
+    }];
 }
 
 @end
