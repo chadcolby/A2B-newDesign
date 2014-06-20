@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="GRC-54-tSu">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -15,50 +15,13 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pv6-jo-b5s" customClass="CCButtons">
-                                <rect key="frame" x="80" y="489" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                <state key="normal" image="menu"/>
-                                <connections>
-                                    <action selector="menuButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tK9-Q6-RnO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTe-TW-krY" customClass="CCButtons">
-                                <rect key="frame" x="190" y="489" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                <state key="normal" image="location">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="currentLocationButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2cS-8i-hwK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUm-uf-kxk" customClass="CCButtons">
-                                <rect key="frame" x="20" y="20" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="close">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="closeButtonPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xPv-X8-0E6"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="closeButton" destination="wUm-uf-kxk" id="9wy-Vc-Ola"/>
-                        <outlet property="currentLocationButton" destination="YTe-TW-krY" id="wp8-bQ-LN5"/>
-                        <outlet property="menuButton" destination="Pv6-jo-b5s" id="J2b-4u-7Qm"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="E3Y-oo-e9Q"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="16" y="57"/>
+            <point key="canvasLocation" x="542" y="57"/>
         </scene>
         <!--Step View Controller-->
         <scene sceneID="Z6o-xV-b2y">
@@ -72,16 +35,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubg-hB-naY" customClass="CCButtons">
-                                <rect key="frame" x="20" y="20" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="close">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="stepsCloseButtonPressed:" destination="TV3-Fz-ZOl" eventType="touchUpInside" id="UrF-lj-kpL"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8D1-pt-Aco" customClass="DRDynamicSlideShow">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,15 +46,35 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ZXW-4d-mUv"/>
                     <connections>
                         <outlet property="pageControl" destination="GLA-3u-MZf" id="zf0-fr-1C1"/>
                         <outlet property="slideShow" destination="8D1-pt-Aco" id="iqM-Pv-MdE"/>
-                        <outlet property="stepsCloseButton" destination="ubg-hB-naY" id="J2f-nn-smm"/>
+                        <segue destination="QFS-G9-XQb" kind="modal" identifier="pushToList" animates="NO" id="tKu-Zg-fhl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5WZ-PK-d83" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="489" y="278"/>
+            <point key="canvasLocation" x="1541" y="278"/>
+        </scene>
+        <!--Direcitons List View Controller-->
+        <scene sceneID="xww-JO-oTc">
+            <objects>
+                <viewController storyboardIdentifier="directionsListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QFS-G9-XQb" customClass="CCDirecitonsListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7jm-c6-GDq"/>
+                        <viewControllerLayoutGuide type="bottom" id="dSg-vW-ul4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mdl-y6-Jru">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c5l-2o-wdE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EtM-xO-PIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2573" y="278"/>
         </scene>
         <!--Drawing View Controller-->
         <scene sceneID="bXm-6a-1dH">
@@ -114,54 +87,77 @@
                     <view key="view" contentMode="center" id="0t5-j8-xxl" customClass="CCDrawingView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBa-Dw-b4f" customClass="CCButtons">
-                                <rect key="frame" x="80" y="489" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButtonPressed:" destination="DSX-TP-nUF" eventType="touchUpInside" id="PWD-Wl-3g8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="bottomLeft" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWy-IP-gby" customClass="CCButtons">
-                                <rect key="frame" x="190" y="489" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="route">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="routeButtonPressed:" destination="DSX-TP-nUF" eventType="touchUpInside" id="ech-VY-Gl3"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration">
                             <bool key="isElement" value="YES"/>
                         </accessibility>
                     </view>
-                    <connections>
-                        <outlet property="backButton" destination="qBa-Dw-b4f" id="A8l-E6-ifP"/>
-                        <outlet property="routeButton" destination="IWy-IP-gby" id="C1q-F8-HMf"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yP-Xj-54m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="488" y="-417"/>
+            <point key="canvasLocation" x="1014" y="-417"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tNP-NY-XyU">
+            <objects>
+                <navigationController storyboardIdentifier="stepNavContoller" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ch6-i1-DUs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tCr-Vs-y8Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TV3-Fz-ZOl" kind="relationship" relationship="rootViewController" id="WAH-H1-4RE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AhA-Zp-XHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1015" y="278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yEb-gJ-jTJ">
+            <objects>
+                <navigationController storyboardIdentifier="listNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3fU-Ox-N5d" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WjS-4K-WfG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QFS-G9-XQb" kind="relationship" relationship="rootViewController" id="BQg-7v-HtG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k59-5K-psg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2047" y="278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="96R-cf-dT0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="GRC-54-tSu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xt1-TL-xnH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="qn6-Au-X9g"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2lB-Mx-9JU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="16" y="57"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="back" width="40" height="36"/>
-        <image name="close" width="50" height="50"/>
-        <image name="location" width="41" height="41"/>
-        <image name="menu" width="40" height="34"/>
-        <image name="route" width="36" height="41"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="tKu-Zg-fhl"/>
+    </inferredMetricsTieBreakers>
 </document>

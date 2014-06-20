@@ -9,7 +9,6 @@
 #import "CCSnapShotController.h"
 #import "CCMapViewController.h"
 #import "CCDrawingViewController.h"
-#import "CCButtons.h"
 #import "CCMenuView.h"
 #import "CCHexCollectionView.h"
 #import "CCRouteRequestController.h"
@@ -18,8 +17,6 @@
 #import "CCSummaryView.h"
 #import <MessageUI/MessageUI.h>
 
-
-
 @interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, StepViewDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
@@ -27,6 +24,10 @@
 @property (strong, nonatomic) CCHexCollectionView *collectionView;
 @property (strong , nonatomic) CCSummaryView *summaryView;
 @property (strong, nonatomic) CCStepViewController *stepViewController;
+
+@property (strong, nonatomic) CINBouncyButton *menuButton;
+@property (strong, nonatomic) CINBouncyButton *closeButton;
+@property (strong, nonatomic) CINBouncyButton *currentLocationButton;
 
 @property (nonatomic) BOOL stepsCanBeShow;
 
@@ -38,12 +39,6 @@
 @property (strong, nonatomic) MKRoute *routeForMap;
 @property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
 
-@property (weak, nonatomic) IBOutlet CCButtons *menuButton;
-- (IBAction)menuButtonPressed:(id)sender;
-@property (weak, nonatomic) IBOutlet CCButtons *currentLocationButton;
-- (IBAction)currentLocationButtonPressed:(id)sender;
-@property (weak, nonatomic) IBOutlet CCButtons *closeButton;
-- (IBAction)closeButtonPressed:(id)sender;
 
 @end
 
@@ -56,11 +51,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.navigationController.navigationBarHidden = YES;
     [self mapViewInitialSetUp];
-
-
 }
+
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -109,7 +104,16 @@
         self.longPress.numberOfTouchesRequired = 1;
         self.longPress.minimumPressDuration = 0.8f;
         [self.mapView addGestureRecognizer:self.longPress];
+        
     }
+    
+    self.menuButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 70, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"menu"] andTitle:nil forMenu:NO];
+    [self.menuButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.menuButton];
+    
+    self.currentLocationButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"location"] andTitle:nil forMenu:NO];
+    [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.currentLocationButton];
     
 }
 
@@ -171,11 +175,12 @@
         self.tapToClose.enabled = NO;
         self.longPress.enabled = YES;
     }];
+
 }
 
 #pragma mark - IBActions
 
-- (IBAction)menuButtonPressed:(id)sender
+- (void)menuButtonPressed:(id)sender
 {
     if (!self.menuView) {
         self.menuView = [[CCMenuView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.bounds.size.width, 100)];
@@ -185,7 +190,7 @@
         self.tapToClose.numberOfTapsRequired = 1;
         self.tapToClose.numberOfTouchesRequired = 1;
         [self.view addGestureRecognizer:self.tapToClose];
-        
+        NSLog(@"set up");
         [self.menuView.directionsButton addTarget:self action:@selector(showDirections:) forControlEvents:UIControlEventTouchUpInside];
         self.menuView.directionsButton.enabled = NO;
         [self.menuView.forwardButton addTarget:self action:@selector(sendMap:) forControlEvents:UIControlEventTouchUpInside];
@@ -200,7 +205,7 @@
 
 }
 
-- (IBAction)currentLocationButtonPressed:(id)sender
+- (void)currentLocationButtonPressed:(id)sender
 {
     if (self.locationManager) {
         [self.locationManager startUpdatingLocation];
@@ -222,6 +227,7 @@
         self.longPress.enabled = YES;
         self.tapToClose.enabled = NO;
     }];
+
 }
 
 #pragma mark - CCButtons actions
@@ -246,11 +252,8 @@
     }
 }
 
-- (void)showDirections:(CCButtons *)sender
+- (void)showDirections:(id)sender
 {
-    if (!self.stepViewController) {
-        NSLog(@"NOT");
-    }
 //    if (!self.collectionView) {
 //        [self directionsViewSetUp];
 //    } else {
@@ -286,13 +289,13 @@
 
 }
 
-- (void)sendMap:(CCButtons *)sender
+- (void)sendMap:(CINBouncyButton *)sender
 {
     [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap
-                                                      andRequest:self.directionsRequest fromSender:self];
+                                                    andRequest:self.directionsRequest fromSender:self];
 }
 
-- (void)clearMapView:(CCButtons *)sender
+- (void)clearMapView:(id)sender
 {
     [self.mapView removeOverlays:self.mapView.overlays];
     [self.collectionView.routeDataSource.stepsDictionariesArray removeAllObjects];
@@ -305,9 +308,9 @@
 
 }
 
-- (void)showSettings:(CCButtons *)sender
+- (void)showSettings:(CINBouncyButton *)sender
 {
-    
+    NSLog(@"fuck");
 }
 
 #pragma mark - DrawingViewDelegate

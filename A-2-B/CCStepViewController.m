@@ -9,10 +9,13 @@
 #import "CCStepViewController.h"
 #import "CCStepView.h"
 #import "CCDirDataSource.h"
+#import "CINBouncyButton.h"
 
 @interface CCStepViewController ()
 
 @property (strong, nonatomic) NSArray *routeArray;
+@property (strong, nonatomic) CINBouncyButton *stepsCloseButton;
+@property (strong, nonatomic) CINBouncyButton *completeDirectionsButton;
 
 @end
 
@@ -21,13 +24,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"stepByStep");
+
+    self.completeDirectionsButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 70, 20,50, 50) image:[UIImage imageNamed:@"menu"] andTitle:nil forMenu:NO];
+    [self.completeDirectionsButton addTarget:self action:@selector(completeDirectionsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.completeDirectionsButton];
+    
+    self.stepsCloseButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(20, 20, 50, 50) image:[UIImage imageNamed:@"close"] andTitle:nil forMenu:NO];
+    [self.stepsCloseButton addTarget:self action:@selector(stepsCloseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.stepsCloseButton];
     
     self.view.backgroundColor = [UIColor clearColor];
     [self.slideShow setDidReachPageBlock:^(NSInteger reachedPage) {
         self.pageControl.currentPage = reachedPage;
-        NSLog(@"%ld", (long)reachedPage);
     }];
+    
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,10 +106,24 @@
     }
 }
 
-#pragma mark - IBActions
+#pragma mark - Button Actions
 
-- (IBAction)stepsCloseButtonPressed:(id)sender
+- (void)stepsCloseButtonPressed:(id)sender
 {
     [self.delegate stepsCloseButtonPressed];
+}
+
+- (void)completeDirectionsButtonPressed:(id)sender
+{
+    NSLog(@"list");
+    [self performSegueWithIdentifier:@"pushToList" sender:self];
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"pushToList"]) {
+        NSLog(@"pushing");
+    }
 }
 @end

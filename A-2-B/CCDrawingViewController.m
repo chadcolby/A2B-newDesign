@@ -7,7 +7,7 @@
 //
 
 #import "CCDrawingViewController.h"
-#import "CCButtons.h"
+
 
 
 @interface CCDrawingViewController () <DrawingEventDelegate>
@@ -15,10 +15,8 @@
 @property (strong, nonatomic) CCDrawingView *drawingView;
 @property (strong, nonatomic) CCLine *requstedRoute;
 
-@property (weak, nonatomic) IBOutlet CCButtons *backButton;
-- (IBAction)backButtonPressed:(id)sender;
-@property (weak, nonatomic) IBOutlet CCButtons *routeButton;
-- (IBAction)routeButtonPressed:(id)sender;
+@property (strong, nonatomic) CINBouncyButton *routeButton;
+@property (strong, nonatomic) CINBouncyButton *backButton;
 
 @end
 
@@ -30,6 +28,14 @@
     self.drawingView = (CCDrawingView *)self.view;
     self.drawingView.delegate = self;
     self.routeButton.enabled = NO;  //enabled once a line is finished
+    
+    self.backButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 70, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"back"] andTitle:nil forMenu:NO];
+    [self.backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backButton];
+    
+    self.routeButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"route"] andTitle:nil forMenu:NO];
+    [self.routeButton addTarget:self action:@selector(routeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.routeButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,10 +52,11 @@
 
 #pragma mark - IBActions
 
-- (IBAction)backButtonPressed:(id)sender
+- (void)backButtonPressed:(id)sender
 {
     [UIView animateWithDuration:0.2 animations:^{
         self.view.hidden = YES;
+
     } completion:^(BOOL finished) {
         if (finished) {
             [self.delegate drawingEventCancelled];
@@ -58,11 +65,12 @@
     }];
 }
 
-- (IBAction)routeButtonPressed:(id)sender
+- (void)routeButtonPressed:(id)sender
 {
     if (self.requstedRoute) {
         [UIView animateWithDuration:0.4 animations:^{
             self.view.hidden = YES;
+
         } completion:^(BOOL finished) {
             if (finished) {
                 [self.delegate requestRouteFromLine:self.requstedRoute];    //mapView translates line points into own coordinate system

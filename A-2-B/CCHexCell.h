@@ -10,9 +10,9 @@
 
 #define kCELL_ID    @"dirCell_ID"
 #define kCELL_XIB   @"CCHexCell"
-#define kCELL_SIZE  CGSizeMake(160, 145)
+#define kCELL_SIZE  CGSizeMake(280, 145)
 #define kCELL_HEIGHT 145
-#define kCELL_WIDTH 160
+#define kCELL_WIDTH 280
 #define kLABEL_OFFSET_SPEED 25
 
 @interface CCHexCell : UICollectionViewCell

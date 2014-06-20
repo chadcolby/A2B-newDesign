@@ -9,9 +9,11 @@
 #import "CCHexCollectionView.h"
 #import "CCHexagonFlowLayout.h"
 #import "CCHexCell.h"
-#import "CCButtons.h"
+#import "CCFadeLayout.h"
+#import "AWCollectionViewDialLayout.h"
 
-@interface CCHexCollectionView ()
+
+@interface CCHexCollectionView () 
 
 @end
 
@@ -19,16 +21,18 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    CCHexagonFlowLayout *collectionViewLayout = [[CCHexagonFlowLayout alloc] init];
-    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//    collectionViewLayout.minimumInteritemSpacing = -30.0f;
-    collectionViewLayout.minimumInteritemSpacing = 0.0f;
-    collectionViewLayout.minimumLineSpacing = 10.0f;
-    collectionViewLayout.sectionInset = UIEdgeInsetsMake(20.0f, 15.0f, 20.0f, 15.0f);
-    collectionViewLayout.itemSize = kCELL_SIZE;
-    collectionViewLayout.gap = 76.0f;
     
-    self = [super initWithFrame:frame collectionViewLayout:collectionViewLayout];
+//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+//    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    flowLayout.minimumInteritemSpacing = 10.0f;
+//    flowLayout.minimumLineSpacing = 10.0f;
+//    flowLayout.sectionInset = UIEdgeInsetsMake(80, 20, 10, 20);
+//    flowLayout.itemSize = kCELL_SIZE;
+//    CCFadeLayout *fadeLayout = [[CCFadeLayout alloc] init];
+
+    AWCollectionViewDialLayout *dialCollectionViewLayout = [[AWCollectionViewDialLayout alloc] initWithRadius:400 andAngularSpacing:20.0f andCellSize:kCELL_SIZE andAlignment:WHEELALIGNMENTCENTER andItemHeight:kCELL_HEIGHT andXOffset:200];
+    
+    self = [super initWithFrame:frame collectionViewLayout:dialCollectionViewLayout];
     if (self) {
 
         self.routeDataSource = [CCDirDataSource sharedDataSource];
@@ -47,7 +51,9 @@
     return self;
 }
 
-- (void)scrollToFront:(CCButtons *)sender
+
+
+- (void)scrollToFront:(id)sender
 {
     [self scrollRectToVisible:CGRectMake(0, 0, 320, 222) animated:YES];
 }

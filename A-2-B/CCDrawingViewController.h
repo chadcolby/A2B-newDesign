@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CCDrawingView.h"
+#import "CINBouncyButton.h"
 
 @protocol RouteRequestDelegate <NSObject>
 

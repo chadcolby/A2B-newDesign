@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCButtons.h"
 
 @interface CCMenuView : UIView
 
-@property (strong, nonatomic) CCButtons *directionsButton;
-@property (strong, nonatomic) CCButtons *forwardButton;
-@property (strong, nonatomic) CCButtons *clearButton;
-@property (strong, nonatomic) CCButtons *settingsButton;
-
-
+@property (strong, nonatomic) UIButton *directionsButton;
+@property (strong, nonatomic) UIButton *forwardButton;
+@property (strong, nonatomic) UIButton *clearButton;
+@property (strong, nonatomic) UIButton *settingsButton;
 
 @end

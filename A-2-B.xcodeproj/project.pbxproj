@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1E56FE1954D18300454BD4 /* CCDirecitonsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E56FD1954D18300454BD4 /* CCDirecitonsListViewController.m */; };
+		8D1E57011954DC7600454BD4 /* CCFadeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E57001954DC7600454BD4 /* CCFadeLayout.m */; };
+		8D1E57041954E57E00454BD4 /* AWCollectionViewDialLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E57031954E57E00454BD4 /* AWCollectionViewDialLayout.m */; };
 		8D20570D1948FBE3009EC71D /* Prime Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D20570C1948FBE3009EC71D /* Prime Regular.otf */; };
 		8D205710194910E7009EC71D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D20570E194910E7009EC71D /* close.png */; };
 		8D205711194910E7009EC71D /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D20570F194910E7009EC71D /* close@2x.png */; };
@@ -20,7 +23,6 @@
 		8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5A193FC07E0047D451 /* CCLine.m */; };
 		8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5D193FC1050047D451 /* CCDrawingView.m */; };
 		8D7B7E61193FCEF70047D451 /* CCRouteRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E60193FCEF70047D451 /* CCRouteRequestController.m */; };
-		8D973B4F1950C7BA00649F5E /* CCStepByStepOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */; };
 		8DA66E9F193D099D00A34A4E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66E9E193D099D00A34A4E /* Foundation.framework */; };
 		8DA66EA1193D099D00A34A4E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */; };
 		8DA66EA3193D099D00A34A4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DA66EA2193D099D00A34A4E /* UIKit.framework */; };
@@ -58,7 +60,6 @@
 		8DBA424A193E58F90039B673 /* hexagon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA4248193E58F90039B673 /* hexagon@2x.png */; };
 		8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEBB193D0D5C00484DCE /* CCMapViewController.m */; };
 		8DC5AEC2193D0DAD00484DCE /* CCDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEC1193D0DAD00484DCE /* CCDrawingViewController.m */; };
-		8DC5AEC5193D2A3200484DCE /* CCButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC5AEC4193D2A3200484DCE /* CCButtons.m */; };
 		CC71074015714E4396F9CB72 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38604731853949928DF66D38 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,12 @@
 /* Begin PBXFileReference section */
 		19A9E0BBA09A49E6BA10764F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		38604731853949928DF66D38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1E56FC1954D18300454BD4 /* CCDirecitonsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirecitonsListViewController.h; sourceTree = "<group>"; };
+		8D1E56FD1954D18300454BD4 /* CCDirecitonsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDirecitonsListViewController.m; sourceTree = "<group>"; };
+		8D1E56FF1954DC7600454BD4 /* CCFadeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFadeLayout.h; sourceTree = "<group>"; };
+		8D1E57001954DC7600454BD4 /* CCFadeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCFadeLayout.m; sourceTree = "<group>"; };
+		8D1E57021954E57E00454BD4 /* AWCollectionViewDialLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWCollectionViewDialLayout.h; sourceTree = "<group>"; };
+		8D1E57031954E57E00454BD4 /* AWCollectionViewDialLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWCollectionViewDialLayout.m; sourceTree = "<group>"; };
 		8D20570C1948FBE3009EC71D /* Prime Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Prime Regular.otf"; sourceTree = "<group>"; };
 		8D20570E194910E7009EC71D /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		8D20570F194910E7009EC71D /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -97,8 +104,6 @@
 		8D7B7E5D193FC1050047D451 /* CCDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDrawingView.m; sourceTree = "<group>"; };
 		8D7B7E5F193FCEF70047D451 /* CCRouteRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRouteRequestController.h; sourceTree = "<group>"; };
 		8D7B7E60193FCEF70047D451 /* CCRouteRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCRouteRequestController.m; sourceTree = "<group>"; };
-		8D973B4D1950C7BA00649F5E /* CCStepByStepOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStepByStepOperation.h; sourceTree = "<group>"; };
-		8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCStepByStepOperation.m; sourceTree = "<group>"; };
 		8DA66E9B193D099D00A34A4E /* A-2-B.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "A-2-B.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA66E9E193D099D00A34A4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8DA66EA0193D099D00A34A4E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -145,8 +150,6 @@
 		8DC5AEBB193D0D5C00484DCE /* CCMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMapViewController.m; sourceTree = "<group>"; };
 		8DC5AEC0193D0DAD00484DCE /* CCDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawingViewController.h; sourceTree = "<group>"; };
 		8DC5AEC1193D0DAD00484DCE /* CCDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCDrawingViewController.m; sourceTree = "<group>"; };
-		8DC5AEC3193D2A3200484DCE /* CCButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCButtons.h; sourceTree = "<group>"; };
-		8DC5AEC4193D2A3200484DCE /* CCButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCButtons.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,8 +228,8 @@
 				8DA66EAD193D099D00A34A4E /* CCAppDelegate.h */,
 				8DA66EAE193D099D00A34A4E /* CCAppDelegate.m */,
 				8DA66EB0193D099D00A34A4E /* Main.storyboard */,
-				8D973B4D1950C7BA00649F5E /* CCStepByStepOperation.h */,
-				8D973B4E1950C7BA00649F5E /* CCStepByStepOperation.m */,
+				8D1E57021954E57E00454BD4 /* AWCollectionViewDialLayout.h */,
+				8D1E57031954E57E00454BD4 /* AWCollectionViewDialLayout.m */,
 				8D7B7E62193FE4870047D451 /* Models */,
 				8DBA422E193E41A70039B673 /* Views */,
 				8DBA4219193E33B90039B673 /* Controllers */,
@@ -308,6 +311,8 @@
 				8DC5AEC1193D0DAD00484DCE /* CCDrawingViewController.m */,
 				8DC5AEBA193D0D5C00484DCE /* CCMapViewController.h */,
 				8DC5AEBB193D0D5C00484DCE /* CCMapViewController.m */,
+				8D1E56FC1954D18300454BD4 /* CCDirecitonsListViewController.h */,
+				8D1E56FD1954D18300454BD4 /* CCDirecitonsListViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -320,8 +325,8 @@
 				8DBA4242193E58000039B673 /* CCHexCell.h */,
 				8DBA4243193E58000039B673 /* CCHexCell.m */,
 				8DBA4245193E58260039B673 /* CCHexCell.xib */,
-				8DC5AEC3193D2A3200484DCE /* CCButtons.h */,
-				8DC5AEC4193D2A3200484DCE /* CCButtons.m */,
+				8D1E56FF1954DC7600454BD4 /* CCFadeLayout.h */,
+				8D1E57001954DC7600454BD4 /* CCFadeLayout.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -509,11 +514,12 @@
 				8D5E9420195243010002996E /* CCStepLabel.m in Sources */,
 				8D5E941D19522B1C0002996E /* CCStepViewController.m in Sources */,
 				8DA66EAB193D099D00A34A4E /* main.m in Sources */,
-				8D973B4F1950C7BA00649F5E /* CCStepByStepOperation.m in Sources */,
+				8D1E56FE1954D18300454BD4 /* CCDirecitonsListViewController.m in Sources */,
 				8D7B7E61193FCEF70047D451 /* CCRouteRequestController.m in Sources */,
+				8D1E57041954E57E00454BD4 /* AWCollectionViewDialLayout.m in Sources */,
 				8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */,
 				8D20571419491720009EC71D /* CCSummaryView.m in Sources */,
-				8DC5AEC5193D2A3200484DCE /* CCButtons.m in Sources */,
+				8D1E57011954DC7600454BD4 /* CCFadeLayout.m in Sources */,
 				8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */,
 				8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */,
 			);
