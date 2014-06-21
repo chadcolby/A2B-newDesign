@@ -121,14 +121,14 @@
     }else  {
         scaleFactor = fmax(0.4, 1 - fabs( newIndex *0.50));
         deltaX =  self.collectionView.bounds.size.width/2;
-        theAttributes.center = CGPointMake(-self.dialRadius + self.xOffset , self.collectionView.bounds.size.height/2 + self.collectionView.contentOffset.y);
+        theAttributes.center = CGPointMake(-self.dialRadius + self.xOffset , self.collectionView.bounds.size.height/2 + self.collectionView.contentOffset.y + 150);
         translationT =CGAffineTransformMakeTranslation(self.dialRadius  + ((1 - scaleFactor) * -30) , 0);
     }
     
     
     
     CGAffineTransform scaleT = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
-    theAttributes.alpha = scaleFactor;
+    theAttributes.alpha = scaleFactor * 0.7;
     
     /*
     if( fabs(self.AngularSpacing* newIndex) > 90 ){

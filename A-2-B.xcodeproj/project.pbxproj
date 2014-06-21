@@ -323,10 +323,10 @@
 		8DBA422E193E41A70039B673 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8D20571219491720009EC71D /* CCSummaryView.h */,
-				8D20571319491720009EC71D /* CCSummaryView.m */,
 				8D7B7E5C193FC1050047D451 /* CCDrawingView.h */,
 				8D7B7E5D193FC1050047D451 /* CCDrawingView.m */,
+				8D20571219491720009EC71D /* CCSummaryView.h */,
+				8D20571319491720009EC71D /* CCSummaryView.m */,
 				8D1E57051954EDA800454BD4 /* CCDirectionsView.h */,
 				8D1E57061954EDA800454BD4 /* CCDirectionsView.m */,
 				8DBA422B193E419A0039B673 /* CCMenuView.h */,

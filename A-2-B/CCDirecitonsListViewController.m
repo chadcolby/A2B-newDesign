@@ -25,7 +25,7 @@
     self.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBarHidden = NO;
     self.view.alpha = 0.0f;
-    self.directionCollectionView = [[CCDirectionsView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y + 50, self.view.bounds.size.width, self.view.bounds.size.height - 50)];
+    self.directionCollectionView = [[CCDirectionsView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height)];
     [self.directionCollectionView reloadData];
     [self.view addSubview:self.directionCollectionView];
     

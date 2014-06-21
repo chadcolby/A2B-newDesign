@@ -7,6 +7,7 @@
 //
 
 #import "CCStepLabel.h"
+#import "CCConstants.h"
 
 @implementation CCStepLabel
 
@@ -17,10 +18,10 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 10.0f;
         self.textColor = [UIColor whiteColor];
-        self.backgroundColor = [UIColor blackColor];
         self.alpha = 0.5f;
         self.numberOfLines = 3;
         self.textAlignment = NSTextAlignmentCenter;
+        self.font = [UIFont fontWithName:kPRIME_TEXT size:15.0f];
     }
     return self;
 }

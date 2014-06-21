@@ -8,7 +8,7 @@
 
 #import "CCDirectionsView.h"
 #import "AWCollectionViewDialLayout.h"
-#import "CCDirDataSource.h"
+
 
 @interface CCDirectionsView ()
 
@@ -20,7 +20,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-        AWCollectionViewDialLayout *dialCollectionViewLayout = [[AWCollectionViewDialLayout alloc] initWithRadius:400 andAngularSpacing:20.0f andCellSize:kCELL_SIZE andAlignment:WHEELALIGNMENTCENTER andItemHeight:kCELL_HEIGHT
+        AWCollectionViewDialLayout *dialCollectionViewLayout = [[AWCollectionViewDialLayout alloc] initWithRadius:500 andAngularSpacing:35.0f andCellSize:kCELL_SIZE andAlignment:WHEELALIGNMENTCENTER andItemHeight:kCELL_HEIGHT
                                                                                                        andXOffset:160];
     self = [super initWithFrame:frame collectionViewLayout:dialCollectionViewLayout];
     if (self) {

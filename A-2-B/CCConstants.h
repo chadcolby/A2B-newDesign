@@ -13,3 +13,5 @@
 #define kCELL_SIZE  CGSizeMake(280, 145)
 #define kCELL_HEIGHT 145
 #define kCELL_WIDTH 280
+#define kCOLLECTION_VIEW_HEIGHT 200
+#define kPRIME_TEXT @"Prime-Regular"

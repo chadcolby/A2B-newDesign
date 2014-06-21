@@ -149,14 +149,6 @@
 
 - (void)closeMenu:(UITapGestureRecognizer *)sender
 {
-//    [UIView animateWithDuration:0.4f animations:^{
-//        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
-//        self.menuButton.alpha = 1.0f;
-//        self.currentLocationButton.alpha = 1.0f;
-//    } completion:^(BOOL finished) {
-//        self.tapToClose.enabled = NO;
-//        self.longPress.enabled = YES;
-//    }];
     [self hideMenuViewAnimated:YES];
     [UIView animateWithDuration:0.4 animations:^{
         self.menuButton.alpha = 1.0f;
@@ -345,7 +337,11 @@
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        self.directionsVC = NULL;
+        self.directionsVC = nil;
+        self.longPress.enabled = YES;
     }];
 }
+
+
+
 @end
