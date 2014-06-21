@@ -1,5 +1,5 @@
 //
-//  CCFadeLayout.h
+//  CCDirectionsView.h
 //  A-2-B
 //
 //  Created by Chad D Colby on 6/20/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CCFadeLayout : UICollectionViewFlowLayout
+@interface CCDirectionsView : UICollectionView
 
 @end

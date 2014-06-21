@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CCConstants.h"
 
-#define kCELL_ID    @"dirCell_ID"
-#define kCELL_XIB   @"CCHexCell"
-#define kCELL_SIZE  CGSizeMake(280, 145)
-#define kCELL_HEIGHT 145
-#define kCELL_WIDTH 280
+//#define kCELL_ID    @"dirCell_ID"
+//#define kCELL_XIB   @"CCHexCell"
+//#define kCELL_SIZE  CGSizeMake(280, 145)
+//#define kCELL_HEIGHT 145
+//#define kCELL_WIDTH 280
 #define kLABEL_OFFSET_SPEED 25
 
 @interface CCHexCell : UICollectionViewCell
@@ -20,8 +21,6 @@
 @property (assign, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (assign, nonatomic) IBOutlet UILabel *unitLabel;
 @property (assign, nonatomic) IBOutlet UILabel *instructionsLabel;
-
-@property (nonatomic, assign, readwrite) CGPoint labelOffset;
 
 + (UINib *)cellNib;
 

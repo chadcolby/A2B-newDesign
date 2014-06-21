@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CCHexCell.h"
 
 @interface CCDirDataSource : NSObject
 

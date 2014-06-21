@@ -7,11 +7,11 @@
 //
 
 #import "CCDirecitonsListViewController.h"
-
+#import "CINBouncyButton.h"
 
 @interface CCDirecitonsListViewController ()
 
-
+@property (strong, nonatomic) CINBouncyButton *closeButton;
 
 @end
 
@@ -20,23 +20,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"dirs");
     
-    NSLog(@"loaded");
+    self.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBarHidden = NO;
-    self.collectionView = [[CCHexCollectionView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y + 50, self.view.bounds.size.width, self.view.bounds.size.height - 50)];
-    [self.collectionView reloadData];
-    [self.view addSubview:self.collectionView];
-    self.collectionView.layer.shadowOffset = CGSizeMake(10.f, 10.f);
-    self.collectionView.layer.shadowRadius = 5.0f;
+    self.view.alpha = 0.0f;
+    self.directionCollectionView = [[CCDirectionsView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y + 50, self.view.bounds.size.width, self.view.bounds.size.height - 50)];
+    [self.directionCollectionView reloadData];
+    [self.view addSubview:self.directionCollectionView];
     
-    
-
+    self.closeButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(20, 20, 50, 50) image:[UIImage imageNamed:@"close"] andTitle:nil forMenu:NO];
+    [self.closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.closeButton];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 
+}
+
+- (void)showDirections
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.view.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)closeButtonPressed:(CINBouncyButton *)sender
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.view.alpha = 0.0f;
+        
+    } completion:^(BOOL finished) {
+        [self.delegate directionsViewClosed];
+    }];
 }
 
 /*

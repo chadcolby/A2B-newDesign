@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CCHexCollectionView.h"
+#import "CCDirectionsView.h"
+
+@protocol DirectionsViewDelegate <NSObject>
+
+- (void)directionsViewClosed;
+
+@end
 
 @interface CCDirecitonsListViewController : UIViewController
 
-@property (strong, nonatomic) CCHexCollectionView *collectionView;
+@property (unsafe_unretained) id <DirectionsViewDelegate> delegate;
+@property (strong, nonatomic) CCDirectionsView *directionCollectionView;
+
+- (void)showDirections;
 
 @end

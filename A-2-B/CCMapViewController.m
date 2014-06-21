@@ -6,30 +6,23 @@
 //  Copyright (c) 2014 Byte Meets World. All rights reserved.
 //
 
-#import "CCSnapShotController.h"
 #import "CCMapViewController.h"
 #import "CCDrawingViewController.h"
 #import "CCMenuView.h"
-#import "CCHexCollectionView.h"
-#import "CCRouteRequestController.h"
-#import "CCStepViewController.h"
-#import "CCHexCell.h"
+#import "CCSnapShotController.h"
 #import "CCSummaryView.h"
+#import "CCDirecitonsListViewController.h"
 #import <MessageUI/MessageUI.h>
 
-@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, UIScrollViewDelegate, StepViewDelegate>
+@interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, DirectionsViewDelegate>
 
 @property (strong, nonatomic) CCDrawingViewController *drawingVC;
 @property (strong, nonatomic) CCMenuView *menuView;
-@property (strong, nonatomic) CCHexCollectionView *collectionView;
-@property (strong , nonatomic) CCSummaryView *summaryView;
-@property (strong, nonatomic) CCStepViewController *stepViewController;
+@property (strong, nonatomic) CCSummaryView *summaryView;
+@property (strong, nonatomic) CCDirecitonsListViewController *directionsVC;
 
 @property (strong, nonatomic) CINBouncyButton *menuButton;
-@property (strong, nonatomic) CINBouncyButton *closeButton;
 @property (strong, nonatomic) CINBouncyButton *currentLocationButton;
-
-@property (nonatomic) BOOL stepsCanBeShow;
 
 @property (nonatomic) CLLocationCoordinate2D userLocation;
 
@@ -39,19 +32,15 @@
 @property (strong, nonatomic) MKRoute *routeForMap;
 @property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
 
-
 @end
 
-@interface CCMapViewController ()
-
-@end
 
 @implementation CCMapViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
+    NSLog(@"mapView");
     [self mapViewInitialSetUp];
 }
 
@@ -60,6 +49,18 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    [UIView animateWithDuration:0.4 animations:^{
+        self.menuButton.alpha = 1.0f;
+        self.currentLocationButton.alpha = 1.0f;
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +74,6 @@
 - (void)mapViewInitialSetUp
 {
     if (!self.mapView) {
-        self.stepsCanBeShow = NO;
         self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.mapView.delegate = self;
         self.mapView.showsUserLocation = YES;
@@ -82,9 +82,6 @@
         [self.view addSubview:self.mapView];
         [self.view bringSubviewToFront:self.currentLocationButton];
         [self.view bringSubviewToFront:self.menuButton];
-        self.closeButton.enabled = NO;
-        self.closeButton.alpha = 0.0f;
-        [self.view bringSubviewToFront:self.closeButton];
         
         if ([CLLocationManager locationServicesEnabled]) {
             if (!self.locationManager) {
@@ -117,20 +114,6 @@
     
 }
 
-
-- (void)directionsViewSetUp
-{
-    self.collectionView = [[CCHexCollectionView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height,
-                                                                                CGRectGetWidth(self.view.frame), 222)];
-    self.collectionView.delegate = (id)self;
-    [self.view addSubview:self.collectionView];
-    [UIView animateWithDuration:0.4f animations:^{
-        self.closeButton.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        self.closeButton.enabled = YES;
-    }];
-}
-
 - (void)drawingViewSetUp
 {
     self.drawingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"drawingVC"];
@@ -156,7 +139,6 @@
         }
         self.menuButton.alpha = 0.0f;
         self.currentLocationButton.alpha = 0.0f;
-        self.stepsCanBeShow = NO;
         [self.mapView removeOverlays:self.mapView.overlays];
         if (self.summaryView) {
             [self.summaryView removeFromSuperview];
@@ -167,13 +149,18 @@
 
 - (void)closeMenu:(UITapGestureRecognizer *)sender
 {
-    [UIView animateWithDuration:0.4f animations:^{
-        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+//    [UIView animateWithDuration:0.4f animations:^{
+//        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
+//        self.menuButton.alpha = 1.0f;
+//        self.currentLocationButton.alpha = 1.0f;
+//    } completion:^(BOOL finished) {
+//        self.tapToClose.enabled = NO;
+//        self.longPress.enabled = YES;
+//    }];
+    [self hideMenuViewAnimated:YES];
+    [UIView animateWithDuration:0.4 animations:^{
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        self.tapToClose.enabled = NO;
-        self.longPress.enabled = YES;
     }];
 
 }
@@ -190,9 +177,7 @@
         self.tapToClose.numberOfTapsRequired = 1;
         self.tapToClose.numberOfTouchesRequired = 1;
         [self.view addGestureRecognizer:self.tapToClose];
-        NSLog(@"set up");
         [self.menuView.directionsButton addTarget:self action:@selector(showDirections:) forControlEvents:UIControlEventTouchUpInside];
-        self.menuView.directionsButton.enabled = NO;
         [self.menuView.forwardButton addTarget:self action:@selector(sendMap:) forControlEvents:UIControlEventTouchUpInside];
         [self.menuView.clearButton addTarget:self action:@selector(clearMapView:) forControlEvents:UIControlEventTouchUpInside];
         [self.menuView.settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
@@ -201,8 +186,6 @@
         self.tapToClose.enabled = YES;
     }
     [self showMenuViewAnimated:YES];
-    
-
 }
 
 - (void)currentLocationButtonPressed:(id)sender
@@ -214,103 +197,81 @@
     }
 }
 
-- (IBAction)closeButtonPressed:(id)sender
-{
-    [UIView animateWithDuration:0.4 animations:^{
-        self.collectionView.alpha = 0.0f;
-        self.closeButton.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        self.closeButton.enabled = NO;
-        [self.collectionView removeFromSuperview];
-        self.menuButton.alpha = 1.0f;
-        self.currentLocationButton.alpha = 1.0f;
-        self.longPress.enabled = YES;
-        self.tapToClose.enabled = NO;
-    }];
-
-}
-
-#pragma mark - CCButtons actions
+#pragma mark - Animations
 
 - (void)showMenuViewAnimated:(BOOL)animated
 {
     if (animated) {
-        if (self.stepsCanBeShow) {
-            self.menuView.directionsButton.enabled = YES;
-        }
-        
         [UIView animateWithDuration:0.4f animations:^{
             self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 100, self.view.bounds.
                                              size.width, 100);
-            self.menuButton.alpha = 0.5f;
-            self.currentLocationButton.alpha = 0.5;
-        } completion:^(BOOL finished) {
             self.menuButton.alpha = 0.0f;
-            self.currentLocationButton.alpha = 0.0f;
+            self.currentLocationButton.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            self.longPress.enabled = NO;
         }];
-        self.longPress.enabled = NO;
     }
 }
 
+- (void)hideMenuViewAnimated:(BOOL)animated
+{
+    if (animated) {
+        [UIView animateWithDuration:0.4f animations:^{
+            self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height);
+        } completion:^(BOOL finished) {
+            self.longPress.enabled = YES;
+            self.tapToClose.enabled = NO;
+        }];
+    }
+}
+
+
+#pragma mark - Menu Button Actions
+
+
+
 - (void)showDirections:(id)sender
 {
-//    if (!self.collectionView) {
-//        [self directionsViewSetUp];
-//    } else {
-//        [self.collectionView reloadData];
-//        [self.view addSubview:self.collectionView];
-//        [UIView animateWithDuration:0.4f animations:^{
-//            self.collectionView.alpha = 1.0f;
-//            self.closeButton.alpha = 1.0f;
-//        } completion:^(BOOL finished) {
-//            self.closeButton.enabled = YES;
-//
-//        }];
-//        
-//    }
-//
-//    [UIView animateWithDuration:0.4f animations:^{
-//        self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width, 100);
-//        self.collectionView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height - 222, self.view.bounds.size.width, 222);        
-//    } completion:^(BOOL finished) {
-//        self.longPress.enabled = NO;
-//        self.tapToClose.enabled = NO;
-//    }];
-    self.summaryView.hidden = YES;
+    if (!self.directionsVC) {
+        self.directionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"directionsListVC"];
+        self.directionsVC.view.frame = self.mapView.frame;
+        self.directionsVC.delegate = self;
+        [self addChildViewController:self.directionsVC];
+        [self.view addSubview:self.directionsVC.view];
+        [self.directionsVC didMoveToParentViewController:self];
+    }
+
     [UIView animateWithDuration:0.4f animations:^{
-        self.stepViewController.view.alpha = 1.0f;
         self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width,
-                                         100);
+                                        self.view.bounds.size.height);
     } completion:^(BOOL finished) {
         self.longPress.enabled = NO;
         self.tapToClose.enabled = NO;
+        [self.directionsVC showDirections];
     }];
-    
 
 }
 
 - (void)sendMap:(CINBouncyButton *)sender
 {
-    [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap
+    if (self.routeForMap) {
+        [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap
                                                     andRequest:self.directionsRequest fromSender:self];
+    }
 }
 
 - (void)clearMapView:(id)sender
 {
     [self.mapView removeOverlays:self.mapView.overlays];
-    [self.collectionView.routeDataSource.stepsDictionariesArray removeAllObjects];
     self.menuView.clearButton.enabled = NO;
     self.menuView.directionsButton.enabled = NO;
     [self.summaryView removeFromSuperview];
-    self.stepsCanBeShow = NO;
-    [self.stepViewController.view removeFromSuperview];
-    [self.stepViewController removeFromParentViewController];
 
 }
 
 - (void)showSettings:(CINBouncyButton *)sender
 {
-    NSLog(@"fuck");
+
 }
 
 #pragma mark - DrawingViewDelegate
@@ -351,18 +312,6 @@
 
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
         [self.view addSubview:self.summaryView];
-        
-        if (!self.stepViewController) {
-            self.stepViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"stepViewController"];
-            [self addChildViewController:self.stepViewController];
-            self.stepViewController.view.frame = self.mapView.bounds;
-            
-            self.stepViewController.delegate = self;
-            [self.view addSubview:self.stepViewController.view];
-            [self.stepViewController didMoveToParentViewController:self];
-            self.stepViewController.view.alpha = 0.0f;
-        }
-        [self.stepViewController shouldBeginSlideShowSetUp:YES];
     }
 }
 
@@ -381,30 +330,22 @@
     }
 }
 
-#pragma mark - StepViewDelegate
+#pragma mark - Navigation
 
-- (void)finishedUpdatingStepViews:(BOOL)finished
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (finished) {
-        self.stepsCanBeShow = finished;
-        self.menuView.directionsButton.enabled = YES;
-    }
+    
 }
 
-- (void)stepsCloseButtonPressed
-{
+#pragma mark - DirectionsView Delegate
 
-    [UIView animateWithDuration:0.4 animations:^{
-        self.stepViewController.view.alpha = 0.0f;
+- (void)directionsViewClosed
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.menuButton.alpha = 1.0f;
+        self.currentLocationButton.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.4f animations:^{
-            self.menuButton.alpha = 1.0f;
-            self.currentLocationButton.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            self.tapToClose.enabled = NO;
-            self.longPress.enabled = YES;
-        }];
+        self.directionsVC = NULL;
     }];
 }
-
 @end

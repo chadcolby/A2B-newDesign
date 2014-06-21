@@ -18,44 +18,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="E3Y-oo-e9Q"/>
+                    <connections>
+                        <segue destination="QFS-G9-XQb" kind="modal" identifier="pushToDirections" id="gxU-34-3uj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="542" y="57"/>
-        </scene>
-        <!--Step View Controller-->
-        <scene sceneID="Z6o-xV-b2y">
-            <objects>
-                <viewController storyboardIdentifier="stepViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TV3-Fz-ZOl" customClass="CCStepViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="mLm-MS-6zo"/>
-                        <viewControllerLayoutGuide type="bottom" id="xzO-hi-fdl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tl5-3n-aFI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8D1-pt-Aco" customClass="DRDynamicSlideShow">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="GLA-3u-MZf">
-                                <rect key="frame" x="140" y="500" width="50" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ZXW-4d-mUv"/>
-                    <connections>
-                        <outlet property="pageControl" destination="GLA-3u-MZf" id="zf0-fr-1C1"/>
-                        <outlet property="slideShow" destination="8D1-pt-Aco" id="iqM-Pv-MdE"/>
-                        <segue destination="QFS-G9-XQb" kind="modal" identifier="pushToList" animates="NO" id="tKu-Zg-fhl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5WZ-PK-d83" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1541" y="278"/>
         </scene>
         <!--Direcitons List View Controller-->
         <scene sceneID="xww-JO-oTc">
@@ -74,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EtM-xO-PIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2573" y="278"/>
+            <point key="canvasLocation" x="1589" y="70"/>
         </scene>
         <!--Drawing View Controller-->
         <scene sceneID="bXm-6a-1dH">
@@ -95,25 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yP-Xj-54m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1014" y="-417"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="tNP-NY-XyU">
-            <objects>
-                <navigationController storyboardIdentifier="stepNavContoller" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="ch6-i1-DUs" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tCr-Vs-y8Z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="TV3-Fz-ZOl" kind="relationship" relationship="rootViewController" id="WAH-H1-4RE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AhA-Zp-XHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1015" y="278"/>
+            <point key="canvasLocation" x="762" y="-701"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yEb-gJ-jTJ">
@@ -131,7 +82,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k59-5K-psg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2047" y="278"/>
+            <point key="canvasLocation" x="1046" y="854"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="96R-cf-dT0">
@@ -158,6 +109,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="tKu-Zg-fhl"/>
+        <segue reference="gxU-34-3uj"/>
     </inferredMetricsTieBreakers>
 </document>
