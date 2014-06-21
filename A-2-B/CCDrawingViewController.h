@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CCDrawingView.h"
 #import "CINBouncyButton.h"
+#import "CCStepLabel.h"
 
 @protocol RouteRequestDelegate <NSObject>
 
@@ -23,5 +24,6 @@
 @property (unsafe_unretained) id <RouteRequestDelegate> delegate;
 
 @property (strong, nonatomic) CCDrawingView *drawingView;
+@property (strong, nonatomic) CCStepLabel *instructionsLabel;
 
 @end

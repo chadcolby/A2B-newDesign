@@ -10,4 +10,6 @@
 
 @interface CCStepLabel : UILabel
 
+- (id)initForInstructionLabel;
+
 @end

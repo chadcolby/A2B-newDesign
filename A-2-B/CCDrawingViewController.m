@@ -33,18 +33,32 @@
     self.routeButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"route"] andTitle:nil forMenu:NO];
     [self.routeButton addTarget:self action:@selector(routeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.routeButton];
+    
+    self.instructionsLabel = [[CCStepLabel alloc] initForInstructionLabel];
+    self.instructionsLabel.text = @"Draw Your Desired Route";
+    self.instructionsLabel.alpha = 0.0f;
+    [self.view addSubview:self.instructionsLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    [self animationInstructionsLabel];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 
+}
+
+- (void)animationInstructionsLabel
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.instructionsLabel.alpha = 0.8f;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - IBActions

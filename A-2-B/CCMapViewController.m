@@ -35,6 +35,7 @@
 @property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
 
 @property (strong, nonatomic) NSString *endAddressString;
+@property (strong, nonatomic) CCStepLabel *instructionLabel;
 
 @end
 
@@ -44,7 +45,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"mapView");
     [self mapViewInitialSetUp];
 }
 
@@ -116,6 +116,10 @@
     [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.currentLocationButton];
     
+    self.instructionLabel = [[CCStepLabel alloc] initForInstructionLabel];
+    self.instructionLabel.text = @"Hold Anywhere to Draw Route";
+    [self.view addSubview:self.instructionLabel];
+    
 }
 
 - (void)drawingViewSetUp
@@ -126,8 +130,13 @@
     [self addChildViewController:self.drawingVC];
 
     self.drawingVC.view.frame = self.mapView.frame;
-    [self.view addSubview:self.drawingVC.view];
-    [self.drawingVC didMoveToParentViewController:self];
+
+    [UIView animateWithDuration:0.4f animations:^{
+        self.instructionLabel.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.view addSubview:self.drawingVC.view];
+        [self.drawingVC didMoveToParentViewController:self];
+    }];
 
 }
 
@@ -141,7 +150,11 @@
         } else {
             self.drawingVC.view.hidden = NO;
             [UIView animateWithDuration:0.4f animations:^{
-                self.drawingVC.view.alpha = 1.0f;
+                self.instructionLabel.alpha = 0.0f;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.2f animations:^{
+                    self.drawingVC.view.alpha = 1.0f;
+                }];
             }];
         }
         self.menuButton.alpha = 0.0f;
@@ -281,6 +294,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
+        self.instructionLabel.alpha = 0.8f;
     } completion:^(BOOL finished) {
         
     }];
@@ -293,13 +307,15 @@
         [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapViewWithRoutes:) name:@"routesReturned" object:nil];
-        self.menuView.clearButton.enabled = YES;
-        self.menuView.directionsButton.enabled = YES;
+        [UIView animateWithDuration:0.4 animations:^{
+            self.menuButton.alpha = 1.0f;
+            self.currentLocationButton.alpha = 1.0f;
+            self.instructionLabel.alpha = 0.8f;
+        } completion:^(BOOL finished) {
+            self.menuView.clearButton.enabled = YES;
+            self.menuView.directionsButton.enabled = YES;
+        }];
     }
-    
-    self.menuButton.alpha = 1.0f;
-    self.currentLocationButton.alpha = 1.0f;
-    
 }
 
 - (void)updateFingerMapViewFromMainMap:(CCLine *)line
