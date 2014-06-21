@@ -52,7 +52,6 @@
                         NSString *timeString = [self formattedStringForDuration:route.expectedTravelTime];
                         double milesFromMeters = route.distance * 0.000621371;
                         NSString *distanceString = [NSString stringWithFormat:@"%.2f miles", milesFromMeters];
-                        NSLog(@"%@ and %f", distanceString, route.distance);
                         [routesInfo setObject:route forKey:@"returnedRoute"];
                         [routesInfo setObject:timeString forKey:@"estimatedTravelTime"];
                         [routesInfo setObject:distanceString forKey:@"totalDistance"];

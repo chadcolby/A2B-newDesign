@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CCLine.h"
+#import "CCFingerView.h"
 
 @protocol DrawingEventDelegate <NSObject>
 
@@ -15,6 +16,7 @@
 
 @optional
 
+- (void)fingerViewCenterForCurrentLine:(CCLine *)currentLine;
 - (void)routeRequestEnabled:(BOOL)enabled;
 
 @end
@@ -25,6 +27,7 @@
 
 @property (strong, nonatomic) NSMutableArray *completedLines;
 @property (strong, nonatomic) NSMutableDictionary *linesInProgress;
+@property (strong, nonatomic) CCFingerView *fingerView;
 
 - (void) clearLines;
 - (void) drawingDidEnd:(NSSet *)touches;

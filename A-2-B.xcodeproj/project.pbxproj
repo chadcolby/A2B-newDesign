@@ -16,6 +16,10 @@
 		8D20571419491720009EC71D /* CCSummaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D20571319491720009EC71D /* CCSummaryView.m */; };
 		8D38CE53194A4996006BDD34 /* CCSnapShotController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D38CE52194A4996006BDD34 /* CCSnapShotController.m */; };
 		8D38CE55194A4D95006BDD34 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D38CE54194A4D95006BDD34 /* MessageUI.framework */; };
+		8D40A90E1955FFB6009CED11 /* CCFingerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D40A90D1955FFB6009CED11 /* CCFingerView.m */; };
+		8D40A91519561390009CED11 /* targetImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D40A91319561390009CED11 /* targetImage.png */; };
+		8D40A91619561390009CED11 /* targetImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D40A91419561390009CED11 /* targetImage@2x.png */; };
+		8D40A91919561685009CED11 /* CCMapPinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D40A91819561685009CED11 /* CCMapPinAnnotation.m */; };
 		8D5E9420195243010002996E /* CCStepLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5E941F195243010002996E /* CCStepLabel.m */; };
 		8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */; };
 		8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B7E5A193FC07E0047D451 /* CCLine.m */; };
@@ -88,6 +92,12 @@
 		8D38CE51194A4996006BDD34 /* CCSnapShotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSnapShotController.h; sourceTree = "<group>"; };
 		8D38CE52194A4996006BDD34 /* CCSnapShotController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCSnapShotController.m; sourceTree = "<group>"; };
 		8D38CE54194A4D95006BDD34 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		8D40A90C1955FFB6009CED11 /* CCFingerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFingerView.h; sourceTree = "<group>"; };
+		8D40A90D1955FFB6009CED11 /* CCFingerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCFingerView.m; sourceTree = "<group>"; };
+		8D40A91319561390009CED11 /* targetImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = targetImage.png; sourceTree = "<group>"; };
+		8D40A91419561390009CED11 /* targetImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "targetImage@2x.png"; sourceTree = "<group>"; };
+		8D40A91719561685009CED11 /* CCMapPinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMapPinAnnotation.h; sourceTree = "<group>"; };
+		8D40A91819561685009CED11 /* CCMapPinAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMapPinAnnotation.m; sourceTree = "<group>"; };
 		8D5E941E195243010002996E /* CCStepLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStepLabel.h; sourceTree = "<group>"; };
 		8D5E941F195243010002996E /* CCStepLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCStepLabel.m; sourceTree = "<group>"; };
 		8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirDataSource.h; sourceTree = "<group>"; };
@@ -173,6 +183,8 @@
 		8D7B7E62193FE4870047D451 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8D40A91719561685009CED11 /* CCMapPinAnnotation.h */,
+				8D40A91819561685009CED11 /* CCMapPinAnnotation.m */,
 				8D7B7E56193FAE2C0047D451 /* CCDirDataSource.h */,
 				8D7B7E57193FAE2C0047D451 /* CCDirDataSource.m */,
 				8D7B7E59193FC07E0047D451 /* CCLine.h */,
@@ -267,6 +279,8 @@
 		8DBA4218193E33A10039B673 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8D40A91319561390009CED11 /* targetImage.png */,
+				8D40A91419561390009CED11 /* targetImage@2x.png */,
 				8D20570E194910E7009EC71D /* close.png */,
 				8D20570F194910E7009EC71D /* close@2x.png */,
 				8DBA4247193E58F90039B673 /* hexagon.png */,
@@ -325,6 +339,8 @@
 			children = (
 				8D7B7E5C193FC1050047D451 /* CCDrawingView.h */,
 				8D7B7E5D193FC1050047D451 /* CCDrawingView.m */,
+				8D40A90C1955FFB6009CED11 /* CCFingerView.h */,
+				8D40A90D1955FFB6009CED11 /* CCFingerView.m */,
 				8D20571219491720009EC71D /* CCSummaryView.h */,
 				8D20571319491720009EC71D /* CCSummaryView.m */,
 				8D1E57051954EDA800454BD4 /* CCDirectionsView.h */,
@@ -414,11 +430,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D40A91519561390009CED11 /* targetImage.png in Resources */,
 				8D205711194910E7009EC71D /* close@2x.png in Resources */,
 				8DBA421D193E35370039B673 /* menu.png in Resources */,
 				8DA66EB7193D099D00A34A4E /* Images.xcassets in Resources */,
 				8DBA4222193E35FF0039B673 /* location@2x.png in Resources */,
 				8DBA4237193E4E6A0039B673 /* clear.png in Resources */,
+				8D40A91619561390009CED11 /* targetImage@2x.png in Resources */,
 				8DBA421E193E35370039B673 /* menu@2x.png in Resources */,
 				8D20570D1948FBE3009EC71D /* Prime Regular.otf in Resources */,
 				8DBA423B193E4E6A0039B673 /* send.png in Resources */,
@@ -496,6 +514,7 @@
 				8DC5AEBC193D0D5C00484DCE /* CCMapViewController.m in Sources */,
 				8DA66EAF193D099D00A34A4E /* CCAppDelegate.m in Sources */,
 				8DC5AEC2193D0DAD00484DCE /* CCDrawingViewController.m in Sources */,
+				8D40A90E1955FFB6009CED11 /* CCFingerView.m in Sources */,
 				8D5E9420195243010002996E /* CCStepLabel.m in Sources */,
 				8DA66EAB193D099D00A34A4E /* main.m in Sources */,
 				8D1E56FE1954D18300454BD4 /* CCDirecitonsListViewController.m in Sources */,
@@ -504,6 +523,7 @@
 				8D1E57071954EDA800454BD4 /* CCDirectionsView.m in Sources */,
 				8D7B7E58193FAE2C0047D451 /* CCDirDataSource.m in Sources */,
 				8D20571419491720009EC71D /* CCSummaryView.m in Sources */,
+				8D40A91919561685009CED11 /* CCMapPinAnnotation.m in Sources */,
 				8D7B7E5B193FC07E0047D451 /* CCLine.m in Sources */,
 				8D7B7E5E193FC1050047D451 /* CCDrawingView.m in Sources */,
 			);

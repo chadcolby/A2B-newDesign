@@ -8,6 +8,11 @@
 
 #import "CCDrawingView.h"
 
+
+@interface CCDrawingView ()
+
+@end
+
 @implementation CCDrawingView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -18,6 +23,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.linesInProgress = [[NSMutableDictionary alloc] init];
         self.completedLines = [[NSMutableArray alloc] init];
+        self.fingerView = [[CCFingerView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
     }
     
     return self;
@@ -49,27 +55,39 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"canBeMoved" object:nil];
-    for (UITouch *finger in touches) {
+    
+    for (UITouch *touch in touches) {
         
-        if (self.completedLines.count >= 1) {
+        if ([touch tapCount] > 1) {
             [self clearLines];
+            return;
         }
         
-        NSValue *key = [NSValue valueWithNonretainedObject:finger];
-        CGPoint lock = [finger locationInView:self];
+        if (self.completedLines.count >= 1) {
+            [self.completedLines removeAllObjects];
+            
+        }
+        
+        NSValue *key = [NSValue valueWithNonretainedObject:touch];
+        CGPoint lock = [touch locationInView:self];
         CCLine *anotherLine = [[CCLine alloc] init];
+        self.fingerView.center = CGPointMake(lock.x, lock.y - 80);
+        [self addSubview:self.fingerView];
         anotherLine.startPoint = lock;
         anotherLine.endPoint = lock;
+        [self.delegate fingerViewCenterForCurrentLine:anotherLine];
         [self.linesInProgress setObject:anotherLine forKey:key];
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in touches) {
-        NSValue *touchKey = [NSValue valueWithNonretainedObject:touch];
+    for (UITouch *movingTouch in touches) {
+        NSValue *touchKey = [NSValue valueWithNonretainedObject:movingTouch];
         CCLine *movingLine = [self.linesInProgress objectForKey:touchKey];
-        CGPoint lock = [touch locationInView:self];
+        [self.delegate fingerViewCenterForCurrentLine:movingLine];
+        CGPoint lock = [movingTouch locationInView:self];
+        self.fingerView.center = CGPointMake(lock.x, lock.y - 80);
         movingLine.endPoint = lock;
 
     }
@@ -95,15 +113,15 @@
 
 - (void) drawingDidEnd:(NSSet *)touches
 {
-    for (UITouch *touch in touches) {
-        NSValue *key = [NSValue valueWithNonretainedObject:touch];
+    for (UITouch *finishedTouch in touches) {
+        NSValue *key = [NSValue valueWithNonretainedObject:finishedTouch];
         CCLine *finishedLine = [self.linesInProgress objectForKey:key];
         if (finishedLine) {
             [self.delegate routeRequestEnabled:YES];
             [self.completedLines addObject:finishedLine];
             [self.linesInProgress removeObjectForKey:key];
             [self.delegate drawingEventFinishedWithLine:finishedLine];
-
+            [self.fingerView removeFromSuperview];
         }
     }
 

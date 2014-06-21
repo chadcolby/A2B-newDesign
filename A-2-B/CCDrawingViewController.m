@@ -8,11 +8,8 @@
 
 #import "CCDrawingViewController.h"
 
-
-
 @interface CCDrawingViewController () <DrawingEventDelegate>
 
-@property (strong, nonatomic) CCDrawingView *drawingView;
 @property (strong, nonatomic) CCLine *requstedRoute;
 
 @property (strong, nonatomic) CINBouncyButton *routeButton;
@@ -54,26 +51,24 @@
 
 - (void)backButtonPressed:(id)sender
 {
-    [UIView animateWithDuration:0.2 animations:^{
-        self.view.hidden = YES;
-
-    } completion:^(BOOL finished) {
-        if (finished) {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.view.alpha = 0.0f;
+        } completion:^(BOOL finished) {
             [self.delegate drawingEventCancelled];
             [self.drawingView clearLines];
-        }
-    }];
+        }];
 }
 
 - (void)routeButtonPressed:(id)sender
 {
     if (self.requstedRoute) {
         [UIView animateWithDuration:0.4 animations:^{
-            self.view.hidden = YES;
+            self.view.alpha = 0.0f;
 
         } completion:^(BOOL finished) {
             if (finished) {
                 [self.delegate requestRouteFromLine:self.requstedRoute];    //mapView translates line points into own coordinate system
+                self.view.hidden = YES;
                 [self.drawingView clearLines];
             }
         }];
@@ -90,8 +85,6 @@
     } else {
         self.requstedRoute = nil;
     }
-
-    
 }
 
 - (void)routeRequestEnabled:(BOOL)enabled
@@ -99,6 +92,11 @@
     if (enabled) {
         self.routeButton.enabled = YES;
     }
+}
+
+- (void)fingerViewCenterForCurrentLine:(CCLine *)currentLine
+{
+    [self.delegate updateFingerMapViewFromMainMap:currentLine];
 }
 
 @end

@@ -30,6 +30,7 @@
 @property (strong, nonatomic) UITapGestureRecognizer *tapToClose;
 
 @property (strong, nonatomic) MKRoute *routeForMap;
+@property (nonatomic) MKCoordinateSpan mapViewSpan;
 @property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
 
 @end
@@ -95,13 +96,13 @@
                 [self.mapView setRegion:mapRegion];
                 [self.locationManager stopUpdatingLocation];
             }
+
         }
         self.longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressDetected:)];
         self.longPress.allowableMovement = 10.0f;
         self.longPress.numberOfTouchesRequired = 1;
         self.longPress.minimumPressDuration = 0.8f;
         [self.mapView addGestureRecognizer:self.longPress];
-        
     }
     
     self.menuButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 70, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"menu"] andTitle:nil forMenu:NO];
@@ -136,6 +137,9 @@
             [self drawingViewSetUp];
         } else {
             self.drawingVC.view.hidden = NO;
+            [UIView animateWithDuration:0.4f animations:^{
+                self.drawingVC.view.alpha = 1.0f;
+            }];
         }
         self.menuButton.alpha = 0.0f;
         self.currentLocationButton.alpha = 0.0f;
@@ -177,6 +181,7 @@
     } else {
         self.tapToClose.enabled = YES;
     }
+
     [self showMenuViewAnimated:YES];
 }
 
@@ -292,6 +297,16 @@
     self.menuButton.alpha = 1.0f;
     self.currentLocationButton.alpha = 1.0f;
     
+}
+
+- (void)updateFingerMapViewFromMainMap:(CCLine *)line
+{
+    CLLocationCoordinate2D movingCoord = [self.mapView convertPoint:line.endPoint toCoordinateFromView:self.mapView];
+    MKCoordinateRegion movingRegion;
+    movingRegion.center = movingCoord;
+    movingRegion.span.latitudeDelta = self.mapView.region.span.latitudeDelta / 10;
+    movingRegion.span.longitudeDelta = self.mapView.region.span.longitudeDelta / 10;
+    [self.drawingVC.drawingView.fingerView.mapView setRegion:movingRegion];
 }
 
 - (void)updateMapViewWithRoutes:(NSNotification *)notification

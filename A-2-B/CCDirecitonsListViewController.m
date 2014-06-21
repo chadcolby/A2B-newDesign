@@ -42,7 +42,7 @@
 
 - (void)showDirections
 {
-    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         self.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
@@ -51,7 +51,7 @@
 
 - (void)closeButtonPressed:(CINBouncyButton *)sender
 {
-    [UIView animateWithDuration:0.4f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         self.view.alpha = 0.0f;
         
     } completion:^(BOOL finished) {
