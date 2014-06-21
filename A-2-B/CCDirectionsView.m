@@ -21,7 +21,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
         AWCollectionViewDialLayout *dialCollectionViewLayout = [[AWCollectionViewDialLayout alloc] initWithRadius:400 andAngularSpacing:20.0f andCellSize:kCELL_SIZE andAlignment:WHEELALIGNMENTCENTER andItemHeight:kCELL_HEIGHT
-                                                                                                       andXOffset:200];
+                                                                                                       andXOffset:160];
     self = [super initWithFrame:frame collectionViewLayout:dialCollectionViewLayout];
     if (self) {
         self.backgroundColor = [UIColor clearColor];

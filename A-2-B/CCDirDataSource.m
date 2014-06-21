@@ -45,7 +45,10 @@
     cell.distanceLabel.font = [UIFont fontWithName:@"Prime-Regular" size:17.0f];
     cell.unitLabel.font = [UIFont fontWithName:@"Prime-Regular" size:17.0f];
     cell.instructionsLabel.font = [UIFont fontWithName:@"Prime-Regular" size:15.0f];
-    
+    cell.backgroundColor = [UIColor blackColor];
+    cell.alpha = 0.5f;
+    cell.clipsToBounds = YES;
+    cell.layer.cornerRadius = 10.f;
     cell.distanceLabel.text = [[self convertDistance:[[self.stepsDictionariesArray objectAtIndex:indexPath.item] objectForKey:@"distanceValue"]] objectAtIndex:0];
     cell.unitLabel.text = [[self convertDistance:[[self.stepsDictionariesArray objectAtIndex:indexPath.item] objectForKey:@"distanceValue"]] objectAtIndex:1];
     cell.instructionsLabel.text = [[self.stepsDictionariesArray objectAtIndex:indexPath.item] objectForKey:@"stepInstructions"];
