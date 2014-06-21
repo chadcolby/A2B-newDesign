@@ -31,7 +31,7 @@
     
 }
 
-- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute andRequest:(MKDirectionsRequest *)dirRequest fromSender:(UIViewController *)sender
+- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute andRequest:(MKDirectionsRequest *)dirRequest fromSender:(UIViewController *)sender WithAddress:(NSString *)address
 {
 
     if (!self.snapShotOptions) {
@@ -118,18 +118,18 @@
             
             UIImage *messageImage = UIGraphicsGetImageFromCurrentImageContext();
             NSData *attachmentData = UIImagePNGRepresentation(messageImage);
-            [self sendMessageWithMapImage:attachmentData fromViewController:sender];
+            [self sendMessageWithMapImage:attachmentData fromViewController:sender WithMessageBody:address];
             UIGraphicsEndImageContext();
 
         }];
     
 }
 
-- (void)sendMessageWithMapImage:(NSData *)mapdata fromViewController:(UIViewController *)sendingVC
+- (void)sendMessageWithMapImage:(NSData *)mapdata fromViewController:(UIViewController *)sendingVC WithMessageBody:(NSString *)body
 {
     MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];
     if ([MFMessageComposeViewController canSendText]) {
-        messageComposeViewController.body = @"Here are some directions...";
+        messageComposeViewController.body = [NSString stringWithFormat:@"Heading to %@", body];
         messageComposeViewController.messageComposeDelegate = self;
         [messageComposeViewController addAttachmentData:mapdata typeIdentifier:@"public.data" filename:@"directions.png"];
         if (self.sendingViewController) {
@@ -158,5 +158,7 @@
         self.sendingViewController = NULL;
     }];
 }
+
+
 
 @end

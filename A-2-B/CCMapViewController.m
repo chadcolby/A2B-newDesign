@@ -12,6 +12,7 @@
 #import "CCSnapShotController.h"
 #import "CCSummaryView.h"
 #import "CCDirecitonsListViewController.h"
+#import "CCMapPinAnnotation.h"
 #import <MessageUI/MessageUI.h>
 
 @interface CCMapViewController () <MKMapViewDelegate, RouteRequestDelegate, DirectionsViewDelegate>
@@ -32,6 +33,8 @@
 @property (strong, nonatomic) MKRoute *routeForMap;
 @property (nonatomic) MKCoordinateSpan mapViewSpan;
 @property (strong, nonatomic) MKDirectionsRequest *directionsRequest;
+
+@property (strong, nonatomic) NSString *endAddressString;
 
 @end
 
@@ -181,7 +184,6 @@
     } else {
         self.tapToClose.enabled = YES;
     }
-
     [self showMenuViewAnimated:YES];
 }
 
@@ -253,13 +255,14 @@
 {
     if (self.routeForMap) {
         [[CCSnapShotController sharedSnapShotController] sendMapView:self.mapView withRoute:self.routeForMap
-                                                    andRequest:self.directionsRequest fromSender:self];
+                                                          andRequest:self.directionsRequest fromSender:self WithAddress:self.endAddressString];
     }
 }
 
 - (void)clearMapView:(id)sender
 {
     [self.mapView removeOverlays:self.mapView.overlays];
+    [self.mapView removeAnnotations:self.mapView.annotations];
     self.menuView.clearButton.enabled = NO;
     self.menuView.directionsButton.enabled = NO;
     [self.summaryView removeFromSuperview];
@@ -316,7 +319,10 @@
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
         self.directionsRequest = [notification.userInfo objectForKey:@"request"];
         [self.mapView addOverlay:self.routeForMap.polyline];
-
+        self.endAddressString = [notification.userInfo objectForKey:@"endAddressString"];
+        CLLocation *endCoord = [notification.userInfo objectForKey:@"endLocationCoordinates"];
+        CCMapPinAnnotation *endPin = [[CCMapPinAnnotation alloc] initWithCoordinate: endCoord.coordinate AndAddress:@"end" AndSubTitle:self.endAddressString];
+        [self.mapView addAnnotation:endPin];
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
         [self.view addSubview:self.summaryView];
     }
@@ -335,6 +341,51 @@
     } else {
         return nil;
     }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *annotationView = nil;
+    
+    if ([annotation isKindOfClass:[CCMapPinAnnotation class]] == NO) {
+        return annotationView;
+    }
+    
+    if ([mapView isEqual:self.mapView] == NO) {
+        return annotationView;
+    }
+    
+    CCMapPinAnnotation *endPin = (CCMapPinAnnotation *)annotation;
+    NSString *pinReuseID = [CCMapPinAnnotation reusableIdentifierForPinType:@"end"];
+    MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReuseID];
+    
+    if (pinAnnotationView == nil) {
+        pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:endPin reuseIdentifier:pinReuseID];
+        [pinAnnotationView setCanShowCallout:YES];
+        
+        UIButton *copyButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [copyButton addTarget:self action:@selector(copy:) forControlEvents:UIControlEventTouchUpInside];
+        pinAnnotationView.leftCalloutAccessoryView = copyButton;
+        
+        
+    }
+    annotationView = pinAnnotationView;
+    
+    return annotationView;
+}
+
+- (void)copy:(id)sender
+{
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = self.endAddressString;
+
+}
+
+- (void)paste:(id)sender
+{
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    NSString *temp = pasteBoard.string;
+    NSLog(@">>>> %@", temp);
 }
 
 #pragma mark - Navigation

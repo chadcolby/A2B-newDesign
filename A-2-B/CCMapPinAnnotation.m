@@ -10,4 +10,31 @@
 
 @implementation CCMapPinAnnotation
 
+@synthesize coordinate = _coordinate;
+@synthesize title = _title;
+@synthesize subTitle = _subTitle;
+
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate AndAddress:(NSString *)addressString AndSubTitle:(NSString *)subTitleString
+{
+    self = [super init];
+    if (self) {
+        _coordinate = coordinate;
+        _title = subTitleString;
+        _subTitle = subTitleString;
+    }
+    return self;
+}
+
+
++ (NSString *)reusableIdentifierForPinType:(NSString *)pinType
+{
+    NSString *type = nil;
+    
+    if ([pinType isEqualToString:@"start"]) {
+        type = @"startPin";
+    } else if ([pinType isEqualToString:@"end"]) {
+        type = @"endPin";
+    }
+    return type;
+}
 @end

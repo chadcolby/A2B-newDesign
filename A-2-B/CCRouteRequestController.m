@@ -33,6 +33,7 @@
             NSLog(@"Error: %@", error.description);
         } else {
             MKPlacemark *endPlacemark = [[MKPlacemark alloc] initWithPlacemark:[placemarks lastObject]];
+            NSString *addressString = [NSString stringWithFormat:@"%@ %@ %@ %@ %@", endPlacemark.subThoroughfare, endPlacemark.thoroughfare, endPlacemark.locality, endPlacemark.administrativeArea, endPlacemark.postalCode];
             MKPlacemark *startPlacemark = [[MKPlacemark alloc] initWithCoordinate:start addressDictionary:nil];
             MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
             [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:endPlacemark]];
@@ -55,6 +56,8 @@
                         [routesInfo setObject:route forKey:@"returnedRoute"];
                         [routesInfo setObject:timeString forKey:@"estimatedTravelTime"];
                         [routesInfo setObject:distanceString forKey:@"totalDistance"];
+                        [routesInfo setObject:addressString forKey:@"endAddressString"];
+                        [routesInfo setObject:endLocation forKey:@"endLocationCoordinates"];
                         
                         [[CCDirDataSource sharedDataSource] reloadCollectionViewWithRoute:route];
                     }

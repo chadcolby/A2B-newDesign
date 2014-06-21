@@ -13,6 +13,6 @@
 
 + (CCSnapShotController *)sharedSnapShotController;
 
-- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute andRequest:(MKDirectionsRequest *)dirRequest fromSender:(UIViewController *)sender;
+- (void)sendMapView:(MKMapView *)currentMapView withRoute:(MKRoute *)requestedRoute andRequest:(MKDirectionsRequest *)dirRequest fromSender:(UIViewController *)sender WithAddress:(NSString *)address;
 
 @end
