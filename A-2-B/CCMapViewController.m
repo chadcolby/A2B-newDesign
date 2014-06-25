@@ -110,6 +110,7 @@
     
     self.menuButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 - 70, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"menu"] andTitle:nil forMenu:NO];
     [self.menuButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:self.menuButton];
     
     self.currentLocationButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"location"] andTitle:nil forMenu:NO];
@@ -256,6 +257,7 @@
     [UIView animateWithDuration:0.4f animations:^{
         self.menuView.frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.size.height, self.view.bounds.size.width,
                                         self.view.bounds.size.height);
+        self.instructionLabel.alpha = 0.0f;
     } completion:^(BOOL finished) {
         self.longPress.enabled = NO;
         self.tapToClose.enabled = NO;
@@ -274,11 +276,22 @@
 
 - (void)clearMapView:(id)sender
 {
-    [self.mapView removeOverlays:self.mapView.overlays];
-    [self.mapView removeAnnotations:self.mapView.annotations];
     self.menuView.clearButton.enabled = NO;
     self.menuView.directionsButton.enabled = NO;
-    [self.summaryView removeFromSuperview];
+    [UIView animateWithDuration:0.2f animations:^{
+        self.summaryView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.instructionLabel.alpha = 0.8f;
+        } completion:^(BOOL finished) {
+            [self.summaryView removeFromSuperview];
+            self.summaryView = nil;
+            [self.mapView removeOverlays:self.mapView.overlays];
+            [self.mapView removeAnnotations:self.mapView.annotations];
+            self.directionsVC.directionCollectionView = nil;
+        }];
+    }];
+
 
 }
 
@@ -304,13 +317,19 @@
 {
     if (finishedLine) {
         CLLocationCoordinate2D endCoord = [self.mapView convertPoint:finishedLine.endPoint toCoordinateFromView:self.mapView];
-        [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];
+        CLLocationCoordinate2D startCoord = [self.mapView convertPoint:finishedLine.startPoint toCoordinateFromView:self.mapView];
+        NSLog(@"locMan: %f %f and line: %f %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude, startCoord.latitude, startCoord.longitude);
+        
+        if (fabsf(self.locationManager.location.coordinate.latitude - startCoord.latitude) > 0.004 || fabs(self.locationManager.location.coordinate.longitude - startCoord.longitude) > 0.004) {
+            [[CCRouteRequestController sharedRequestController] requestRouteWithStart:startCoord AndEnd:endCoord];  //roughly 4 blocks away from user location
+        } else {
+            [[CCRouteRequestController sharedRequestController] requestRouteWithStart:self.locationManager.location.coordinate AndEnd:endCoord];    //starts at user loc
+        }
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapViewWithRoutes:) name:@"routesReturned" object:nil];
         [UIView animateWithDuration:0.4 animations:^{
             self.menuButton.alpha = 1.0f;
             self.currentLocationButton.alpha = 1.0f;
-            self.instructionLabel.alpha = 0.8f;
         } completion:^(BOOL finished) {
             self.menuView.clearButton.enabled = YES;
             self.menuView.directionsButton.enabled = YES;
@@ -335,12 +354,18 @@
         self.routeForMap = [notification.userInfo objectForKey:@"returnedRoute"];
         self.directionsRequest = [notification.userInfo objectForKey:@"request"];
         [self.mapView addOverlay:self.routeForMap.polyline];
+       
         self.endAddressString = [notification.userInfo objectForKey:@"endAddressString"];
         CLLocation *endCoord = [notification.userInfo objectForKey:@"endLocationCoordinates"];
-        CCMapPinAnnotation *endPin = [[CCMapPinAnnotation alloc] initWithCoordinate: endCoord.coordinate AndAddress:@"end" AndSubTitle:self.endAddressString];
+        CLLocation *startCoord = [notification.userInfo objectForKeyedSubscript:@"startLocationCoordinates"];
+        CCMapPinAnnotation *endPin = [[CCMapPinAnnotation alloc] initWithCoordinate: endCoord.coordinate AndAddress:@"end" AndSubTitle:@"End."];
         [self.mapView addAnnotation:endPin];
-        self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 35, 20, 70, 40)];
+        CCMapPinAnnotation *startPin = [[CCMapPinAnnotation alloc] initWithCoordinate:startCoord.coordinate AndAddress:nil AndSubTitle:@"Start."];
+        [self.mapView addAnnotation:startPin];
+        
+        self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 50, 20, 100, 40)];
         [self.view addSubview:self.summaryView];
+        self.instructionLabel.alpha = 0.0f;
     }
 }
 
@@ -359,6 +384,16 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     MKAnnotationView *annotationView = nil;
@@ -374,41 +409,28 @@
     CCMapPinAnnotation *endPin = (CCMapPinAnnotation *)annotation;
     NSString *pinReuseID = [CCMapPinAnnotation reusableIdentifierForPinType:@"end"];
     MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReuseID];
-    
     if (pinAnnotationView == nil) {
         pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:endPin reuseIdentifier:pinReuseID];
         [pinAnnotationView setCanShowCallout:YES];
         
-        UIButton *copyButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [copyButton addTarget:self action:@selector(copy:) forControlEvents:UIControlEventTouchUpInside];
-        pinAnnotationView.leftCalloutAccessoryView = copyButton;
-        
-        
+        if ([endPin.subTitle isEqualToString:@"End."]) {
+            UIButton *copyButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [copyButton addTarget:self action:@selector(showAddressView:) forControlEvents:UIControlEventTouchUpInside];
+            pinAnnotationView.leftCalloutAccessoryView = copyButton;
+        }
+    
     }
     annotationView = pinAnnotationView;
     
     return annotationView;
-}
-
-- (void)copy:(id)sender
-{
-    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = self.endAddressString;
 
 }
 
-- (void)paste:(id)sender
+- (void)showAddressView:(id)sender
 {
-    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    NSString *temp = pasteBoard.string;
-    NSLog(@">>>> %@", temp);
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
+    CCSummaryView *addressView = [[CCSummaryView alloc] initForAddressView:self.endAddressString AndFrame:CGRectMake(self.view.center.x - 90, self.view.center.y - 20, 180,
+                                                                                                                     40)];
+    [self.view addSubview:addressView];
 }
 
 #pragma mark - DirectionsView Delegate
@@ -418,6 +440,7 @@
     [UIView animateWithDuration:0.4f animations:^{
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
+        self.instructionLabel.alpha = 0.8f;
     } completion:^(BOOL finished) {
         self.directionsVC = nil;
         self.longPress.enabled = YES;

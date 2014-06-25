@@ -20,7 +20,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"dirs");
     
     self.view.backgroundColor = [UIColor clearColor];
     self.navigationController.navigationBarHidden = NO;

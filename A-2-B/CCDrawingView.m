@@ -54,8 +54,6 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"canBeMoved" object:nil];
-    
     for (UITouch *touch in touches) {
         
         if ([touch tapCount] > 1) {

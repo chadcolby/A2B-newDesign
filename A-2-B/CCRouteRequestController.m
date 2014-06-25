@@ -25,8 +25,8 @@
 - (void)requestRouteWithStart:(CLLocationCoordinate2D)start AndEnd:(CLLocationCoordinate2D)end
 {
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    CLLocation *endLocation = [[CLLocation alloc] initWithLatitude:end.latitude
-                                                         longitude:end.longitude];
+    CLLocation *endLocation = [[CLLocation alloc] initWithLatitude:end.latitude longitude:end.longitude];
+    CLLocation *startLocation = [[CLLocation alloc] initWithLatitude:start.latitude longitude:start.longitude];
     
     [geoCoder reverseGeocodeLocation:endLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error) {
@@ -58,6 +58,7 @@
                         [routesInfo setObject:distanceString forKey:@"totalDistance"];
                         [routesInfo setObject:addressString forKey:@"endAddressString"];
                         [routesInfo setObject:endLocation forKey:@"endLocationCoordinates"];
+                        [routesInfo setObject:startLocation forKey:@"startLocationCoordinates"];
                         
                         [[CCDirDataSource sharedDataSource] reloadCollectionViewWithRoute:route];
                     }
@@ -74,6 +75,12 @@
 {
     NSInteger minutes = floor(duration/60);
     NSInteger seconds = round(duration - minutes * 60);
-    return [NSString stringWithFormat:@"%ld:%02ld min.", (long)minutes, (long)seconds];
+    if (minutes >= 60) {
+        NSInteger hours = floor(minutes/60);
+        NSInteger mins = floor(minutes - hours*60);
+        return [NSString stringWithFormat:@"%ld hr.%02ld min.", (long)hours, (long)mins];
+    } else {
+        return [NSString stringWithFormat:@"%ld:%02ld min.", (long)minutes, (long)seconds];
+    }
 }
 @end

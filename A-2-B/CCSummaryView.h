@@ -14,5 +14,6 @@
 @property (strong, nonatomic) UILabel *totalDistanceLabel;
 
 - (id)initWIthEstimatedTime:(NSString *)estimatedTime andDistance:(NSString *)distance andFrame:(CGRect)frame;
+- (id)initForAddressView:(NSString *)address AndFrame:(CGRect)frame;
 
 @end

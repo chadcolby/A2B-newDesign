@@ -12,7 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldUpdateSlideShow:) name:@"updateSlideShow" object:nil];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     return YES;
 }
@@ -44,9 +44,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)shouldUpdateSlideShow:(NSNotification *)notification
-{
-    NSLog(@">>>>>>>");
-}
+
 
 @end
