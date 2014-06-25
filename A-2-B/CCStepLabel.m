@@ -34,8 +34,8 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 10.0f;
         self.textColor = [UIColor whiteColor];
-        self.alpha = 0.8f;
-        self.backgroundColor = [UIColor colorWithRed:185.f/255 green:61.f/255 blue:76.f/255 alpha:1.f];
+        self.alpha = 1.0f;
+        self.backgroundColor = [UIColor colorWithRed:185.f/255 green:61.f/255 blue:76.f/255 alpha:1.0f];
         self.numberOfLines = 1;
         self.textAlignment = NSTextAlignmentCenter;
         self.font = [UIFont fontWithName:kPRIME_TEXT size:15.0f];

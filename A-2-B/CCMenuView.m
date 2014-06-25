@@ -34,7 +34,7 @@
     [self addSubview:self.forwardButton];
     
     self.clearButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.origin.x + 175, 25, 50, 50)];
-    [self.clearButton setImage:[UIImage imageNamed:@"clear"] forState:UIControlStateNormal];
+    [self.clearButton setImage:[UIImage imageNamed:@"trash"] forState:UIControlStateNormal];
     [self addSubview:self.clearButton];
     
     self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.origin.x + 255, 25, 50, 50)];

@@ -113,8 +113,9 @@
 
     [self.view addSubview:self.menuButton];
     
-    self.currentLocationButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"location"] andTitle:nil forMenu:NO];
+    self.currentLocationButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"currentLocation"] andTitle:nil forMenu:NO];
     [self.currentLocationButton addTarget:self action:@selector(currentLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:self.currentLocationButton];
     
     self.instructionLabel = [[CCStepLabel alloc] initForInstructionLabel];
@@ -282,13 +283,13 @@
         self.summaryView.alpha = 0.0f;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.2 animations:^{
-            self.instructionLabel.alpha = 0.8f;
+            self.instructionLabel.alpha = 1.0f;
         } completion:^(BOOL finished) {
             [self.summaryView removeFromSuperview];
             self.summaryView = nil;
             [self.mapView removeOverlays:self.mapView.overlays];
             [self.mapView removeAnnotations:self.mapView.annotations];
-            self.directionsVC.directionCollectionView = nil;
+            self.directionsVC = nil;
         }];
     }];
 
@@ -307,7 +308,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
-        self.instructionLabel.alpha = 0.8f;
+        self.instructionLabel.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
     }];
@@ -428,8 +429,7 @@
 
 - (void)showAddressView:(id)sender
 {
-    CCSummaryView *addressView = [[CCSummaryView alloc] initForAddressView:self.endAddressString AndFrame:CGRectMake(self.view.center.x - 90, self.view.center.y - 20, 180,
-                                                                                                                     40)];
+    CCSummaryView *addressView = [[CCSummaryView alloc] initForAddressView:self.endAddressString AndFrame:CGRectMake(self.view.center.x - 90, self.view.center.y - 20, 180, 40)];
     [self.view addSubview:addressView];
 }
 
@@ -440,9 +440,8 @@
     [UIView animateWithDuration:0.4f animations:^{
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
-        self.instructionLabel.alpha = 0.8f;
+
     } completion:^(BOOL finished) {
-        self.directionsVC = nil;
         self.longPress.enabled = YES;
     }];
 }

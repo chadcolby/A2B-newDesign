@@ -27,9 +27,9 @@
         self.mapView = [[MKMapView alloc] initWithFrame:self.frame];
         [self addSubview:self.mapView];
         
-        UIView *targetView = [[UIView alloc] initWithFrame:self.frame];
-        targetView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"targetImage"]];
-        targetView.alpha = 0.5f;
+        UIView *targetView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - 17, self.bounds.size.height / 2 - 17, 34, 34)];
+        
+        targetView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pinPoint"]];
         [self addSubview:targetView];
         
     }

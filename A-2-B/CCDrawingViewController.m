@@ -30,7 +30,7 @@
     [self.backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backButton];
     
-    self.routeButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"route"] andTitle:nil forMenu:NO];
+    self.routeButton = [[CINBouncyButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width / 2 + 20, self.view.bounds.size.height - 70, 50, 50) image:[UIImage imageNamed:@"check"] andTitle:nil forMenu:NO];
     [self.routeButton addTarget:self action:@selector(routeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.routeButton];
     
@@ -55,7 +55,7 @@
 - (void)animationInstructionsLabel
 {
     [UIView animateWithDuration:0.4 animations:^{
-        self.instructionsLabel.alpha = 0.8f;
+        self.instructionsLabel.alpha = 1.0f;
     } completion:^(BOOL finished) {
         
     }];
