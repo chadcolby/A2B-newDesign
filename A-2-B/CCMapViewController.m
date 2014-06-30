@@ -37,6 +37,8 @@
 @property (strong, nonatomic) NSString *endAddressString;
 @property (strong, nonatomic) CCStepLabel *instructionLabel;
 
+@property (nonatomic) BOOL canShowDirections;
+
 @end
 
 
@@ -122,6 +124,8 @@
     self.instructionLabel.text = @"Hold Anywhere to Draw Route";
     [self.view addSubview:self.instructionLabel];
     
+    self.canShowDirections = NO;
+    
 }
 
 - (void)drawingViewSetUp
@@ -192,9 +196,11 @@
         self.tapToClose.numberOfTouchesRequired = 1;
         [self.view addGestureRecognizer:self.tapToClose];
         [self.menuView.directionsButton addTarget:self action:@selector(showDirections:) forControlEvents:UIControlEventTouchUpInside];
+        if (!self.canShowDirections) {
+            self.menuView.directionsButton.enabled = NO;
+        }
         [self.menuView.forwardButton addTarget:self action:@selector(sendMap:) forControlEvents:UIControlEventTouchUpInside];
         [self.menuView.clearButton addTarget:self action:@selector(clearMapView:) forControlEvents:UIControlEventTouchUpInside];
-        [self.menuView.settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
 
     } else {
         self.tapToClose.enabled = YES;
@@ -296,11 +302,6 @@
 
 }
 
-- (void)showSettings:(CINBouncyButton *)sender
-{
-
-}
-
 #pragma mark - DrawingViewDelegate
 
 - (void)drawingEventCancelled
@@ -309,6 +310,7 @@
         self.menuButton.alpha = 1.0f;
         self.currentLocationButton.alpha = 1.0f;
         self.instructionLabel.alpha = 1.0f;
+
     } completion:^(BOOL finished) {
         
     }];
@@ -319,7 +321,6 @@
     if (finishedLine) {
         CLLocationCoordinate2D endCoord = [self.mapView convertPoint:finishedLine.endPoint toCoordinateFromView:self.mapView];
         CLLocationCoordinate2D startCoord = [self.mapView convertPoint:finishedLine.startPoint toCoordinateFromView:self.mapView];
-        NSLog(@"locMan: %f %f and line: %f %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude, startCoord.latitude, startCoord.longitude);
         
         if (fabsf(self.locationManager.location.coordinate.latitude - startCoord.latitude) > 0.004 || fabs(self.locationManager.location.coordinate.longitude - startCoord.longitude) > 0.004) {
             [[CCRouteRequestController sharedRequestController] requestRouteWithStart:startCoord AndEnd:endCoord];  //roughly 4 blocks away from user location
@@ -367,6 +368,7 @@
         self.summaryView = [[CCSummaryView alloc] initWIthEstimatedTime:[notification.userInfo objectForKey:@"estimatedTravelTime"] andDistance:[notification.userInfo objectForKey:@"totalDistance"] andFrame:CGRectMake(self.view.bounds.size.width / 2 - 50, 20, 100, 40)];
         [self.view addSubview:self.summaryView];
         self.instructionLabel.alpha = 0.0f;
+        self.canShowDirections = YES;
     }
 }
 

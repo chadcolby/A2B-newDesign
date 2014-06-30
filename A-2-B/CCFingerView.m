@@ -22,7 +22,7 @@
         self.clipsToBounds = YES;
         self.layer.cornerRadius = self.frame.size.height / 2;
         self.layer.borderWidth = 1.0f;
-        self.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.layer.borderColor = [UIColor colorWithRed:185.f/255 green:61.f/255 blue:76.f/255 alpha:1.f].CGColor;
         
         self.mapView = [[MKMapView alloc] initWithFrame:self.frame];
         [self addSubview:self.mapView];
