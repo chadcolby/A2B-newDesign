@@ -419,6 +419,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Byte Meets World";
 				TargetAttributes = {
+					8DA66E9A193D099D00A34A4E = {
+						DevelopmentTeam = MSQVU8969Q;
+					};
 					8DA66EBB193D099D00A34A4E = {
 						TestTargetID = 8DA66E9A193D099D00A34A4E;
 					};
@@ -681,6 +684,7 @@
 				GCC_PREFIX_HEADER = "A-2-B/A-2-B-Prefix.pch";
 				INFOPLIST_FILE = "A-2-B/A-2-B-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -692,10 +696,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chad Colby (MSQVU8969Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "A-2-B/A-2-B-Prefix.pch";
 				INFOPLIST_FILE = "A-2-B/A-2-B-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
